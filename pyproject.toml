@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "e2e-mobile"
+dynamic = ["version"]
+description = "E2E Testing for mobile apps"
+readme = "README.rst"
+authors = [{ name = "Thuyen Trinh", email = "trinhngocthuyen@gmail.com" }]
+license = {text = "MIT"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+keywords = ["ci", "cd", "ci/cd", "mobile", "ios"]
+dependencies = [
+    "retry",
+    "requests",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = [
+    "setuptools>=61.0.0",
+    "pip-tools",
+    "black",
+    "autoflake",
+    "isort",
+    "pre-commit",
+    "bumpver",
+    "twine",
+    "pytest",
+    "pytest-cov",
+    "sphinx_rtd_theme",
+]
+
+[project.urls]
+Homepage = "https://github.com/trinhngocthuyen/e2e-mobile"
+
+[tool.setuptools.dynamic]
+version = {file = "VERSION"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = true
+
+[tool.black]
+skip_string_normalization = true
+
+[tool.pytest.ini_options]
+addopts = "-v --cov=. --cov-report=xml"
