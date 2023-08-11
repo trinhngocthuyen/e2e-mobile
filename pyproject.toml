@@ -20,7 +20,8 @@ classifiers = [
 keywords = ["ci", "cd", "ci/cd", "mobile", "ios"]
 dependencies = [
     "retry",
-    "requests",
+    "Appium-Python-Client",
+    "pytest",
 ]
 requires-python = ">=3.8"
 
@@ -53,4 +54,4 @@ namespaces = true
 skip_string_normalization = true
 
 [tool.pytest.ini_options]
-addopts = "-v --cov=. --cov-report=xml"
+addopts = "-s -v --cov=. --cov-report=xml"

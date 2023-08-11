@@ -1,0 +1,25 @@
+exclude: ^(VERSION)
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/psf/black
+    rev: 22.6.0
+    hooks:
+      - id: black
+        files: ^(src|tests|e2e_ext)
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        files: ^(src|tests|e2e_ext)
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v1.4
+    hooks:
+      - id: autoflake
+        args: ['-r', '-i', '--remove-all-unused-imports', '--remove-unused-variables']
+        files: ^(src|tests|e2e_ext)
+        exclude: __init__.py$
