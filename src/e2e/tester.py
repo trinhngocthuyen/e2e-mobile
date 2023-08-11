@@ -8,5 +8,5 @@ class Tester:
 
     def __init__(self, wd: WD) -> None:
         self.wd = wd
-        self.screens = Screens(wd=wd)
+        self.ui = Screens(wd=wd)
         self.simulations = Simulations()
