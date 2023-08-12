@@ -7,5 +7,5 @@ def test_example(tester: Tester):
     tester.ui.home.button('Next').tap()
     tester.ui.home.button('Next').tap()
     tester.ui.home.button('Next').tap()
-    tester.ui.base.wait()
-    tester.ui.home.go_to_settings()
+    tester.ui.home.button('Get started').tap()
+    tester.ui.base.wait(3)

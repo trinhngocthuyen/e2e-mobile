@@ -11,6 +11,7 @@ from e2e.core.logger import logger
 @pytest.fixture
 def wd(
     appium_config,
+    appium_service,
     default_capabilities,
     update_options,
     capabilities,
@@ -55,7 +56,7 @@ def capabilities():
     return {}
 
 
-@pytest.fixture(scope='session', autouse=True)
+@pytest.fixture(scope='session')
 def appium_service(appium_config):
     logger.info('Starting Appium...')
     service = AppiumService()
