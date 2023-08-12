@@ -133,3 +133,4 @@ dmypy.json
 # ---------------------
 tmp/
 docs/api/cicd*
+.artifacts/

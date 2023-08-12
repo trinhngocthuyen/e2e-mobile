@@ -4,5 +4,5 @@ from e2e.tester import Tester
 
 
 @pytest.fixture
-def tester(wd):
-    return Tester(wd=wd)
+def tester(wd, take_screenshot):
+    yield Tester(wd=wd)
