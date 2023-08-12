@@ -1,7 +1,7 @@
 import pytest
 
 pytest_plugins = [
-    'e2e.fixtures.tester',
+    'e2e.fixtures',
 ]
 
 
