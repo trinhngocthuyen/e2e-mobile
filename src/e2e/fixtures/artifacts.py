@@ -1,6 +1,7 @@
-import pytest
 from datetime import datetime
 from pathlib import Path
+
+import pytest
 
 from e2e.core.logger import logger
 

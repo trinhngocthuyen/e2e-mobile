@@ -2,6 +2,7 @@ import time
 
 from e2e._typing import WD
 from e2e.core.ui import Button, Element, ElementCallable, TextField
+
 from .logger import LoggerMixin
 
 
