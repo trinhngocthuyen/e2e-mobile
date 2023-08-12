@@ -1,4 +1,4 @@
-from e2e.core.ui import Button, Element, ElementCallable, Textfield
+from e2e.core.ui import Button, Element, ElementCallable, TextField
 
 
 class UIMixin:
@@ -15,5 +15,5 @@ class UIMixin:
         return ElementCallable(wd=self.wd, dtype=Button)
 
     @property
-    def textfield(self) -> ElementCallable[Textfield]:
-        return ElementCallable(wd=self.wd, dtype=Textfield)
+    def textfield(self) -> ElementCallable[TextField]:
+        return ElementCallable(wd=self.wd, dtype=TextField)
