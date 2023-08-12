@@ -14,7 +14,7 @@ def wd(
     default_capabilities,
     update_options,
     capabilities,
-):
+) -> WD:
     if env.platform == Platform.IOS:
         options = XCUITestOptions()
     elif env.platform == Platform.ADR:
