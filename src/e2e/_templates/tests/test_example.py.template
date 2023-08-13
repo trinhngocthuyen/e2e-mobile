@@ -1,0 +1,6 @@
+from e2e.tester import Tester
+
+
+def test_example(tester: Tester):
+    tester.ui.button('Skip').tap()
+    tester.ui.element('Explore').must_exist()
