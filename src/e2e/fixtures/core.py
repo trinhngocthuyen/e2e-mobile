@@ -6,6 +6,7 @@ from appium.webdriver.appium_service import AppiumService
 from e2e._typing import WD
 from e2e.core.env import Platform, env
 from e2e.core.logger import logger
+from e2e.core.utils import WDUtils
 
 
 @pytest.fixture
@@ -28,6 +29,11 @@ def wd(
     this = WD(f'http://{host}:{port}', options=options)
     yield this
     this.quit()
+
+
+@pytest.fixture
+def wd_utils(wd):
+    return WDUtils(wd=wd)
 
 
 @pytest.fixture(scope='session')

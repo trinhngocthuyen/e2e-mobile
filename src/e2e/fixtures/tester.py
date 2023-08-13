@@ -6,8 +6,7 @@ from e2e.tester import Tester
 @pytest.fixture
 def tester(
     wd,
-    save_page_source,
-    screen_recording,
-    take_screenshot,
+    artifacts_dir,
+    diagnostic,
 ):
-    return Tester(wd=wd)
+    return Tester(wd=wd, artifacts_dir=artifacts_dir)

@@ -1,14 +1,12 @@
 import time
 
-from e2e._typing import WD
+from e2e.core.mixin.logger import LoggerMixin
 from e2e.core.ui import Button, Element, ElementCallable, TextField
 
-from .logger import LoggerMixin
+from .wd import WDMixin
 
 
-class UIMixin(LoggerMixin):
-    wd: WD
-
+class BaseUIMixin(WDMixin, LoggerMixin):
     @property
     def element(self) -> ElementCallable[Element]:
         return ElementCallable(wd=self.wd, dtype=Element)

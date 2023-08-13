@@ -2,6 +2,7 @@ import types
 from typing import TYPE_CHECKING
 
 from e2e._typing import WD
+from e2e.core.mixin.ui import UIMixin
 from e2e.core.screen import Screen
 from e2e.mixin.dynamic import DynamicAttrsMixin
 
@@ -11,7 +12,11 @@ else:
     ScreensTyping = types.new_class('Empty')
 
 
-class Screens(ScreensTyping, DynamicAttrsMixin):
+class Screens(
+    ScreensTyping,
+    DynamicAttrsMixin,
+    UIMixin,
+):
     def __init__(self, wd: WD) -> None:
         self.wd = wd
         self.base = Screen(wd=wd)

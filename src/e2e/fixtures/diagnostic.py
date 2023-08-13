@@ -5,6 +5,28 @@ import pytest
 
 from e2e._typing import WD, Path
 from e2e.core.logger import logger
+from e2e.core.utils import WDUtils
+
+
+@pytest.fixture
+def diagnostic(
+    screen_recording,
+    save_page_source,
+    take_screenshot,
+):
+    pass
+
+
+@pytest.fixture
+def take_screenshot(wd_utils: WDUtils, artifacts_dir):
+    yield
+    wd_utils.take_screenshot(artifacts_dir / 'screenshot.png')
+
+
+@pytest.fixture
+def save_page_source(wd_utils: WDUtils, artifacts_dir):
+    yield
+    wd_utils.save_page_source(artifacts_dir / 'page_source.xml')
 
 
 @pytest.fixture
