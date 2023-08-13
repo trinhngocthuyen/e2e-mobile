@@ -73,15 +73,15 @@ class Element(WebElement):
             return first_match(
                 (AppiumBy.ID, self.access_id),
                 (AppiumBy.ID, self.ios_access_id),
-                (AppiumBy.ID, self.xpath),
-                (AppiumBy.ID, self.ios_xpath),
+                (AppiumBy.XPATH, self.xpath),
+                (AppiumBy.XPATH, self.ios_xpath),
             )
         if platform == 'Android':
             return first_match(
                 (AppiumBy.ID, self.access_id),
                 (AppiumBy.ID, self.adr_access_id),
-                (AppiumBy.ID, self.xpath),
-                (AppiumBy.ID, self.adr_xpath),
+                (AppiumBy.XPATH, self.xpath),
+                (AppiumBy.XPATH, self.adr_xpath),
             )
         raise RuntimeError(f'Unsupported platform: {platform}')
 
