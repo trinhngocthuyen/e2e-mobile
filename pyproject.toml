@@ -22,8 +22,12 @@ dependencies = [
     "retry",
     "Appium-Python-Client",
     "pytest",
+    "click",
 ]
 requires-python = ">=3.8"
+
+[project.scripts]
+e2e = 'e2e.cli:main'
 
 [project.optional-dependencies]
 dev = [
