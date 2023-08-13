@@ -5,6 +5,9 @@ class HomeScreen(Screen):
     def skip_tutorial(self):
         self.button('Skip').tap()
 
+    def must_not_see_tutorial(self):
+        self.button('Skip').must_not_exist()
+
     def complete_tutorial(self):
         self.element('Skip').must_exist()
         self.button('Next').tap()

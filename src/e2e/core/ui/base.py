@@ -3,7 +3,7 @@ import typing as t
 from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.webdriver import WebDriver
 from appium.webdriver.webelement import WebElement
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -106,10 +106,16 @@ class Element(WebElement):
             wd_wait.until(ec)
             self._element = self.wd.find_element(locator[0], locator[1])
             self.__dict__.update(self._element.__dict__)
-        except TimeoutException:
+        except Exception as e:
             if self.failable:
                 return self
-            msg = f'Could not find element with locator: {locator}'
+            # If expected not to see the element, the type would be NoSuchElementException
+            if not availability and isinstance(e, NoSuchElementException):
+                return self
+            if availability:
+                msg = f'Could not find element with locator {locator}'
+            else:
+                msg = f'Element with locator {locator} still exists'
             logger.error(msg)
             raise AssertionError(msg) from None
         return self
