@@ -1,6 +1,4 @@
 from .artifacts import *
 from .core import *
-from .page_source import *
-from .recording import *
-from .screenshot import *
+from .diagnostic import *
 from .tester import *
