@@ -1,4 +1,4 @@
-End-to-end testing package for mobile apps
+End-to-end Testing Package for Mobile Apps
 ==========================================
 
 .. _readthedocs: https://seeeye.readthedocs.io/
