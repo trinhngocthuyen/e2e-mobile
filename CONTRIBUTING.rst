@@ -27,6 +27,12 @@ Development Workflow
 
 This step install necessary dependencies and creates a virtual environment (in ``.venv`` directory).
 
+To install Appium related dependencies, simply run:
+
+.. code-block:: console
+
+    $ make bootstrap
+
 **Step 3: Activate virtual environment**
 
 .. code-block:: console
@@ -34,6 +40,19 @@ This step install necessary dependencies and creates a virtual environment (in `
     $ source .venv/bin/activate
 
 **Step 4: Make changes**
+
+To try out e2e tests, you can use the example in ``tests/e2e/test_example.py``.
+The given test runs against the Wikipedia app.
+
+.. code-block:: console
+
+    $ pytest tests/e2e/test_example.py
+
+.. note::
+
+    Prior to running the above test, you might want to build the `Wikipedia iOS project <https://github.com/wikimedia/wikipedia-ios>`_.
+    Simply run: ``make build.wikipedia.ios``.
+    The app will be placed under ``tmp/apps/Wikipedia.app``
 
 **Step 5: Format changes**
 
