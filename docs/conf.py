@@ -17,8 +17,8 @@ sys.path.insert(0, os.path.abspath('../src'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'seeeye'
-copyright = '2022, Thuyen Trinh'
+project = 'e2e-mobile'
+copyright = '2023, Thuyen Trinh'
 author = 'Thuyen Trinh'
 
 # -- General configuration ---------------------------------------------------

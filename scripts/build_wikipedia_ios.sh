@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+if ! which cicd &> /dev/null; then
+    python3 -m pip install --upgrade seeeye
+fi
+
 WORK_DIR=${PWD}
 WIKIPEDIA_TMP_DIR=/tmp/wikipedia-ios
 
