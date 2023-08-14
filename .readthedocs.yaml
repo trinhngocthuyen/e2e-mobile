@@ -6,3 +6,4 @@ build:
   jobs:
     pre_build:
       - make install doc
+      - python -m pip install --upgrade sphinx-rtd-theme
