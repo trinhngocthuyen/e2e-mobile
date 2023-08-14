@@ -16,4 +16,4 @@ class HomeScreen(Screen):
         self.button('Get started').tap()
 
     def go_to_settings(self):
-        self.logger.debug('Go to settings')
+        self.button(xpath='//XCUIElementTypeButton[@label="Settings"]').tap()
