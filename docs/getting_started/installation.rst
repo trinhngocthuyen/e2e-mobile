@@ -34,7 +34,5 @@ The following commands demonstrate the steps above.
 
     $ which npm &> /dev/null || brew install node
     $ appium --version &> /dev/null || npm install -g appium
-    # For iOS
-    $ (appium driver list --installed 2>&1 | grep xcuitest) || appium driver install xcuitest
-    # For Android
-    $ (appium driver list --installed 2>&1 | grep uiautomator2) || appium driver install uiautomator2
+    $ (appium driver list --installed 2>&1 | grep xcuitest) || appium driver install xcuitest # For iOS
+    $ (appium driver list --installed 2>&1 | grep uiautomator2) || appium driver install uiautomator2 # For Android
