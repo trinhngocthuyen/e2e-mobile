@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "e2e-mobile"
 dynamic = ["version"]
-description = "E2E Testing for mobile apps"
+description = "E2E Testing framework for mobile apps"
 readme = "README.rst"
 authors = [{ name = "Thuyen Trinh", email = "trinhngocthuyen@gmail.com" }]
 license = {text = "MIT"}

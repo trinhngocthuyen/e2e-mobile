@@ -1,0 +1,52 @@
+name: deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy-rc:
+        description: Deploy a RC version
+        type: boolean
+      deploy-stable:
+        description: Deploy a stable version
+        type: boolean
+
+jobs:
+  deploy-rc:
+    if: ${{ inputs.deploy-rc }}
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Install
+        uses: trinhngocthuyen/gh-actions/py/install@main
+      - name: Publish to PyPI
+        uses: trinhngocthuyen/gh-actions/py/deploy@main
+        with:
+          hook-version-file: VERSION
+          hook-version-suffix: .rc${{ github.run_id }}
+          pypi-token: ${{ secrets.PYPI_TOKEN }}
+
+  deploy-stable:
+    if: ${{ inputs.deploy-stable }}
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Install
+        uses: trinhngocthuyen/gh-actions/py/install@main
+      - name: Publish to PyPI
+        uses: trinhngocthuyen/gh-actions/py/deploy@main
+        with:
+          pypi-token: ${{ secrets.PYPI_TOKEN }}
+      - name: Create a release
+        uses: trinhngocthuyen/gh-actions/gh/release@main
+        with:
+          version-file: VERSION
+          generate-release-notes: true
+      - name: Bump version
+        uses: trinhngocthuyen/gh-actions/core/bump_version@main
+        with:
+          version-file: VERSION
+      - name: Push changes
+        uses: trinhngocthuyen/gh-actions/git/push@main
+        with:
+          commit_msg: "[skip ci] CHORE: Bump version"
+          token: ${{ secrets.GH_TOKEN }}
