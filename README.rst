@@ -29,8 +29,7 @@ Usage
 
 Kindly check out the related docs on readthedocs_:
 
-- `Usage <https://e2e-mobile.readthedocs.io/en/latest/usage/index.html>`_
-
+- `Getting Started <https://e2e-mobile.readthedocs.io/en/latest/getting_started/index.html>`_
 
 Documentation
 -------------
