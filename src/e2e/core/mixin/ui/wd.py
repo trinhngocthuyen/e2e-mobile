@@ -1,4 +1,5 @@
 import typing as t
+from functools import cached_property
 
 from e2e._typing import WD
 from e2e.core.mixin.logger import LoggerMixin
@@ -6,6 +7,11 @@ from e2e.core.mixin.logger import LoggerMixin
 
 class WDMixin(LoggerMixin):
     wd: WD
+
+    @cached_property
+    def window_size(self) -> t.Tuple[float, float]:
+        size = self.wd.get_window_size()
+        return (size['width'], size['height'])
 
     @property
     def app_id(self) -> t.Optional[str]:
@@ -21,3 +27,31 @@ class WDMixin(LoggerMixin):
             self.logger.warning('Cannot detect app_id for app relaunch')
         self.wd.terminate_app(app_id=app_id)
         self.wd.activate_app(app_id=app_id)
+
+    def swipe(
+        self,
+        direction: str = 'up',
+        xy_ratio_start: t.Optional[t.Tuple[float, float]] = None,
+        xy_ratio_end: t.Optional[t.Tuple[float, float]] = None,
+        duration: float = 0,
+    ):
+        w, h = self.window_size
+        ratio_small, ratio_big = 0.2, 0.8
+        start, end = {
+            'up': ((w * 0.5, h * ratio_big), (w * 0.5, h * ratio_small)),
+            'down': ((w * 0.5, h * ratio_small), (w * 0.5, h * ratio_big)),
+            'left': ((w * ratio_big, h * 0.5), (w * ratio_small, h * 0.5)),
+            'right': ((w * ratio_small, h * 0.5), (w * ratio_big, h * 0.5)),
+        }.get(direction)
+        if xy_ratio_start:
+            start = (w * xy_ratio_start[0], h * xy_ratio_start[1])
+        if xy_ratio_end:
+            end = (w * xy_ratio_end[0], h * xy_ratio_end[1])
+        self.logger.debug(f'Swipe {direction}: {start = }, {end = }')
+        self.wd.swipe(
+            start_x=int(start[0]),
+            start_y=int(start[1]),
+            end_x=int(end[0]),
+            end_y=int(end[1]),
+            duration=int(duration * 1000),
+        )
