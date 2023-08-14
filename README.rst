@@ -1,7 +1,7 @@
 End-to-end Testing Package for Mobile Apps
 ==========================================
 
-.. _readthedocs: https://seeeye.readthedocs.io/
+.. _readthedocs: https://e2e-mobilereadthedocs.io
 .. _contributing guidelines: https://e2e-mobile.readthedocs.io/en/latest/contributing.html
 
 .. image:: https://img.shields.io/pypi/v/e2e-mobile.svg
