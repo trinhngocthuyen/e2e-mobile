@@ -8,5 +8,5 @@ pytest_plugins = [
 @pytest.fixture
 def capabilities():
     return {
-        'app': 'tmp/apps/Wikipedia.app',
+        'app': 'tmp/apps/example.app',
     }

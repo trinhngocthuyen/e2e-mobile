@@ -8,7 +8,7 @@ def test_example(tester: Tester):
     tester.relaunch_app()
     tester.ui.home.must_not_see_tutorial()
 
-    # Check element in settings
+    # Check elements in settings
     tester.ui.home.go_to_settings()
     tester.ui.settings.swipe('up')
     tester.ui.settings.element('About the app').must_exist()

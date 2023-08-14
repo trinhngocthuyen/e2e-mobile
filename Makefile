@@ -8,8 +8,8 @@ install:
 	python3 -m virtualenv .venv
 	. .venv/bin/activate && pip install -r requirements.txt
 
-build.wikipedia.ios:
-	sh scripts/build_wikipedia_ios.sh
+demo.build:
+	e2e demo build
 
 test.unit:
 	. .venv/bin/activate && pytest tests/unit

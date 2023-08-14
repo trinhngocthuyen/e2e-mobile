@@ -2,5 +2,18 @@ from e2e.tester import Tester
 
 
 def test_example(tester: Tester):
+    # Skip tutorial
     tester.ui.button('Skip').tap()
-    tester.ui.element('Explore').must_exist()
+
+    # Check elements in settings
+    tester.ui.button(xpath='//XCUIElementTypeButton[@label="Settings"]').tap()
+    tester.ui.swipe('up')
+    tester.ui.element('About the app').must_exist()
+    tester.ui.swipe('down')
+    tester.ui.button(xpath='//XCUIElementTypeButton[@label="Close"]').tap()
+
+    # Check search screen
+    tester.ui.button('Search').tap()
+    tester.ui.textfield('Search Wikipedia').input('Facebook')
+    tester.ui.element('Social networking service').tap()
+    tester.ui.button('Back').tap()
