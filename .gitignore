@@ -132,5 +132,5 @@ dmypy.json
 
 # ---------------------
 tmp/
-docs/api/cicd*
+docs/api/e2e*
 .artifacts/

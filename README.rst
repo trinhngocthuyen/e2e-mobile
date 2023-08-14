@@ -1,5 +1,14 @@
-e2e-mobile (End-to-end testing framework for mobile apps)
+e2e-mobile (End-to-end testing package for mobile apps)
 =========================================================
+
+.. _readthedocs: https://seeeye.readthedocs.io/
+.. _contributing guidelines: /contributing.html
+
+.. image:: https://img.shields.io/pypi/v/e2e-mobile.svg
+    :target: https://pypi.org/project/e2e-mobile
+
+.. image:: https://img.shields.io/pypi/l/e2e-mobile.svg
+    :target: https://github.com/trinhngocthuyen/e2e-mobile/blob/main/LICENSE
 
 ``e2e-mobile`` is a Python package providing convenient setup for end-to-end testing in mobile apps.
 
@@ -17,12 +26,20 @@ Installation
 
 Usage
 -----
-TBU
+
+Kindly check out the related docs on readthedocs_:
+
+- `Usage <https://e2e-mobile.readthedocs.io/en/latest/usage/index.html>`_
+
 
 Documentation
 -------------
-TBU
+
+Kindly check out the related docs on readthedocs_:
+
+- `API Reference <https://e2e-mobile.readthedocs.io/en/latest/api/reference.html>`_
 
 Contributing
 ------------
-TBU
+
+Refer to the `contributing guidelines`_ for how to contribute to this project.
