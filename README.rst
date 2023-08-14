@@ -1,5 +1,5 @@
-e2e-mobile (End-to-end testing package for mobile apps)
-=========================================================
+End-to-end testing package for mobile apps
+==========================================
 
 .. _readthedocs: https://seeeye.readthedocs.io/
 .. _contributing guidelines: https://e2e-mobile.readthedocs.io/en/latest/contributing.html
