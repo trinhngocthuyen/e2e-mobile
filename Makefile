@@ -3,7 +3,7 @@ bootstrap:
 	which appium &> /dev/null || npm install -g appium
 	(appium driver list --installed 2>&1 | grep xcuitest) || appium driver install xcuitest
 
-install: bootstrap
+install:
 	python3 -m pip install virtualenv
 	python3 -m virtualenv .venv
 	. .venv/bin/activate && pip install -r requirements.txt
