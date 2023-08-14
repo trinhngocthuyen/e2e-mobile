@@ -17,7 +17,7 @@ End-to-end Testing Package for Mobile Apps
 Installation
 ------------
 
-``e2e-mobile`` `available on PyPI (Python Package Index)
+``e2e-mobile`` is `available on PyPI (Python Package Index)
 <https://pypi.org/project/e2e-mobile>`_. You can install with with ``pip``:
 
 .. code-block:: console
