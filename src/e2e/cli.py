@@ -5,6 +5,7 @@ from e2e._cli.new import main as new
 
 
 @click.group()
+@click.version_option(package_name='e2e-mobile')
 def main():
     pass
 

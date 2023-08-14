@@ -2,7 +2,7 @@ e2e-mobile (End-to-end testing package for mobile apps)
 =========================================================
 
 .. _readthedocs: https://seeeye.readthedocs.io/
-.. _contributing guidelines: /contributing.html
+.. _contributing guidelines: https://e2e-mobile.readthedocs.io/en/latest/contributing.html
 
 .. image:: https://img.shields.io/pypi/v/e2e-mobile.svg
     :target: https://pypi.org/project/e2e-mobile

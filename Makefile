@@ -1,5 +1,5 @@
 bootstrap:
-	npm --version &> /dev/null || brew install node
+	which npm &> /dev/null || brew install node
 	which appium &> /dev/null || npm install -g appium
 	(appium driver list --installed 2>&1 | grep xcuitest) || appium driver install xcuitest
 
