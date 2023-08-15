@@ -1,3 +1,4 @@
+import time
 import typing as t
 from functools import cached_property
 
@@ -7,6 +8,10 @@ from e2e.core.mixin.logger import LoggerMixin
 
 class WDMixin(LoggerMixin):
     wd: WD
+
+    def wait(self, seconds: float = 1):
+        self.logger.debug(f'Wait for {seconds}s')
+        time.sleep(seconds)
 
     @cached_property
     def window_size(self) -> t.Tuple[float, float]:
