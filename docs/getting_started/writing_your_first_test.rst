@@ -7,7 +7,7 @@ For the sake of demonstration, we're going to use the Wikipedia iOS app for test
 
 Let's say we are testing the Settings screen in the app.
 
-.. image:: //_static/wikipedia_settings.png
+.. image:: ../../_static/wikipedia_settings.png
 
 Creating a test function
 ------------------------
