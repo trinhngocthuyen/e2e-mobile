@@ -56,4 +56,4 @@ Then, you can run the example tests:
 
 Remember to open the Simulator app to see what's going on. You should see the test execution like this:
 
-.. image:: ../../_static/recording.gif
+.. image:: //_static/recording.gif
