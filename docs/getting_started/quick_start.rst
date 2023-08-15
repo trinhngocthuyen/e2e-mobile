@@ -1,7 +1,7 @@
 Quick Start
 ===========
 
-Initialize the Project
+Initialize the project
 ----------------------
 
 Run the following command to kick off the initial setup.
@@ -15,7 +15,7 @@ The command above generates the example code needed including:
 - ``e2e_ext`` directory: where you write extensions (UI assertions, simulations...).
 - ``tests`` directory: where you write your tests.
 
-Recommended ``.gitignore`` Settings
+Recommended ``.gitignore`` settings
 -----------------------------------
 
 While executing tests, ``e2e-mobile`` writes some data which might be useful for troubleshooting issues. You are recommended to add the following paths to ``.gitignore``.
@@ -26,7 +26,7 @@ While executing tests, ``e2e-mobile`` writes some data which might be useful for
     tmp/apps/
     .artifacts/
 
-Running the Example Tests
+Running the example tests
 -------------------------
 
 This package offers a convenient way to try out the example tests.
