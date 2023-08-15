@@ -61,7 +61,7 @@ class Element(WebElement):
         self.ios_xpath: t.Optional[str] = kwargs.get('ios_xpath')
         self.adr_xpath: t.Optional[str] = kwargs.get('adr_xpath')
         self.failable: bool = kwargs.get('failable', False)
-        self.timeout: float = kwargs.get('timeout') or 5
+        self.timeout: float = kwargs.get('timeout') or 8
         self.poll_frequency = kwargs.get('poll_frequency') or 0
 
     def _make_locator(self) -> t.Tuple[AppiumBy, str]:
