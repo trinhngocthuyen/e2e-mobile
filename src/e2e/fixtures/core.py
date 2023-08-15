@@ -79,18 +79,22 @@ def capabilities():
 
 
 @pytest.fixture(scope='session')
-def appium_service(appium_config):
+def appium_service(appium_config, session_artifacts_dir):
     logger.info('Starting Appium...')
     service = AppiumService()
-    service.start(
-        args=[
-            '--address',
-            appium_config.get('host'),
-            '-p',
-            str(appium_config.get('port')),
-        ],
-        timeout_ms=20000,
-    )
+    appium_log_path = session_artifacts_dir / 'appium.log'
+    with appium_log_path.open('wb') as f:
+        service.start(
+            args=[
+                '--address',
+                appium_config.get('host'),
+                '-p',
+                str(appium_config.get('port')),
+            ],
+            stdout=f,
+            stderr=f,
+            timeout_ms=20000,
+        )
     yield service
     service.stop()
     logger.info('Stopping Appium...')
