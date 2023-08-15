@@ -4,4 +4,4 @@ from .base import BaseUIMixin
 class UIMixin(
     BaseUIMixin,
 ):
-    pass
+    '''A combined mixin to work with UI assertions and actions.'''
