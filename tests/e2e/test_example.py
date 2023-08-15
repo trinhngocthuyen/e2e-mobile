@@ -20,3 +20,8 @@ def test_example(tester: Tester):
     tester.ui.home.textfield('Search Wikipedia').input('Facebook')
     tester.ui.home.element('Social networking service').tap()
     tester.ui.home.button('Back').tap()
+
+
+def test_simulation(tester: Tester):
+    with tester.simulations.example:
+        pass
