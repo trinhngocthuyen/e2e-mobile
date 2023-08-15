@@ -1,6 +1,6 @@
 import pytest
 
-from e2e.tester import Tester
+from e2e import Tester
 
 
 @pytest.fixture

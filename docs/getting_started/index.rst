@@ -9,3 +9,4 @@ Getting Started
    writing_your_first_test
    ui_assertions
    simulations
+   inspecting_elements
