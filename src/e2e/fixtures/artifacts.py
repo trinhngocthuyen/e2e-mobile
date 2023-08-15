@@ -1,3 +1,4 @@
+import shutil
 from datetime import datetime
 from pathlib import Path
 
@@ -13,8 +14,14 @@ def session_id() -> str:
 
 @pytest.fixture(scope='session')
 def session_artifacts_dir(session_id) -> Path:
-    this = Path('.artifacts') / session_id
+    root = Path('.artifacts')
+    this = root / session_id
     this.mkdir(parents=True, exist_ok=True)
+    n_sessions_to_keep = 20
+    children = sorted((p for p in root.glob('*') if p.is_dir()), reverse=True)
+    for dir in children[n_sessions_to_keep:]:
+        logger.debug(f'Clean up old artifacts: {dir}')
+        shutil.rmtree(dir)
     return this
 
 
