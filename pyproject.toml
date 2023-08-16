@@ -23,6 +23,7 @@ dependencies = [
     "Appium-Python-Client",
     "pytest",
     "click",
+    "seeeye",
 ]
 requires-python = ">=3.8"
 
