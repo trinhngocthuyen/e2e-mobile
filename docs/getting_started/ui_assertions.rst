@@ -1,4 +1,0 @@
-Using UI Assertions
-===================
-
-TBU

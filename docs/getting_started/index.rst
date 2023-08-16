@@ -7,6 +7,6 @@ Getting Started
    installation
    quick_start
    writing_your_first_test
-   ui_assertions
+   ui_assertions_actions
    simulations
    inspecting_elements
