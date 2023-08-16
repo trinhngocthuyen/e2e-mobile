@@ -15,7 +15,6 @@ from e2e.core.utils import AppUtils, WDUtils
 def wd(
     appium_config,
     appium_service,
-    prepare_simulator,
     merged_capabilities,
     setup_wd,
 ) -> WD:
