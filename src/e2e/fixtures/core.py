@@ -16,17 +16,17 @@ def wd(
     appium_config,
     appium_service,
     merged_capabilities,
-    update_options,
+    setup_wd,
 ) -> WD:
     if env.platform == Platform.IOS:
         options = XCUITestOptions()
     elif env.platform == Platform.ADR:
         options = UiAutomator2Options()
-    update_options(options)
     logger.debug(f'Capabilities: {merged_capabilities}')
     options.load_capabilities(merged_capabilities)
     host, port = appium_config.get('host'), appium_config.get('port')
     this = WD(f'http://{host}:{port}', options=options)
+    setup_wd(this)
     yield this
     this.quit()
 
@@ -45,11 +45,11 @@ def appium_config():
 
 
 @pytest.fixture
-def update_options():
-    def fn(options):
+def setup_wd():
+    def setup(wd: WD):
         pass
 
-    return fn
+    return setup
 
 
 @pytest.fixture
