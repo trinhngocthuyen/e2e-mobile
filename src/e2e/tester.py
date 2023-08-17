@@ -15,7 +15,7 @@ class Tester(WDMixin):
         self.wd = wd
         self.wd_utils = kwargs.get('wd_utils') or WDUtils(wd=wd)
         self.ui = Screens(wd=wd)
-        self.simulations = Simulations()
+        self.simulations = Simulations(wd=wd)
         self.artifacts_dir: t.Optional[Path] = kwargs.get('artifacts_dir')
 
     def artifacts_path(self, fname: str) -> Path:
