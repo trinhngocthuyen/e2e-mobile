@@ -109,3 +109,11 @@ class WDMixin(LoggerMixin):
             'bottom_right': (0.8, 0.8),
         }.get(area)
         self.tap_coordinates(xy_ratios=xy_ratio)
+
+    def hide_keyboard(
+        self,
+        key_name: t.Optional[str] = None,
+        key: t.Optional[str] = None,
+        strategy: t.Optional[str] = None,
+    ):
+        self.wd.hide_keyboard(key_name=key_name, key=key, strategy=strategy)
