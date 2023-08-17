@@ -4,6 +4,7 @@ from functools import cached_property
 
 from e2e._typing import WD
 from e2e.core.mixin.logger import LoggerMixin
+from e2e.core.utils.wd import WDUtils
 
 __all__ = ['WDMixin']
 
@@ -36,10 +37,7 @@ class WDMixin(LoggerMixin):
 
     @property
     def app_id(self) -> t.Optional[str]:
-        if value := self.wd.capabilities.get('bundleId'):
-            return value
-        if value := self.wd.capabilities.get('appPackage'):
-            return value
+        return WDUtils.app_id_from_caps(self.wd.capabilities)
 
     def relaunch_app(self, app_id: t.Optional[str] = None):
         app_id = app_id or self.app_id
