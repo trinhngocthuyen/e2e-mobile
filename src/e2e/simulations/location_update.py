@@ -1,5 +1,6 @@
-import subprocess
 import typing as t
+
+from cicd.core.utils.sh import sh
 
 from e2e.core.env import Platform, env
 from e2e.core.simulation import Simulation
@@ -26,8 +27,7 @@ class LocationUpdateSimulation(Simulation):
     def ios_update_location(self, lat: float, lng: float):
         device = WDUtils.device_from_caps(self.wd.capabilities)
         self.logger.debug(f'Update location: {lat = }, {lng = }')
-        cmd = f'xcrun simctl location {device} set {lat},{lng}'
-        subprocess.run(cmd, shell=True)
+        sh.exec(f'xcrun simctl location {device} set {lat},{lng}')
 
     def __call__(
         self, lat: t.Optional[float] = None, lng: t.Optional[float] = None

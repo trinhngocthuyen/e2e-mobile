@@ -6,6 +6,7 @@ from e2e.core.simulation import Simulation
 from e2e.mixin.dynamic import DynamicAttrsMixin
 
 from .location_update import LocationUpdateSimulation
+from .push_notification import PushNotificationSimulation
 
 if TYPE_CHECKING:
     from e2e_ext._typing import SimulationsTyping
@@ -15,6 +16,7 @@ else:
 
 class Simulations(SimulationsTyping, DynamicAttrsMixin):
     location_update: LocationUpdateSimulation
+    push_notification: PushNotificationSimulation
 
     def __init__(self, wd: WD) -> None:
         self.wd = wd
