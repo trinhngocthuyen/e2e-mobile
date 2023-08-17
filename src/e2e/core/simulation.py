@@ -1,5 +1,6 @@
 import typing as t
 
+from e2e._typing import WD
 from e2e.core.mixin.logger import LoggerMixin
 
 S = t.TypeVar('S', bound='Simulation')
@@ -20,24 +21,23 @@ class Simulation(LoggerMixin):
             perform_assertions()
     '''
 
-    def __init__(self, *args, **kwargs) -> None:
-        self.args = args
-        self.kwargs = kwargs
+    def __init__(self, wd: WD) -> None:
+        self.wd = wd
+        self.kwargs = {}
 
-    def run(self, *args, **kwargs):
+    def run(self, **kwargs):
         '''Running a simulation. Subclasses need to implement this.'''
 
-    def __call__(self: S, *args, **kwargs) -> S:
-        self.args = args
+    def __call__(self: S, **kwargs) -> S:
         self.kwargs = kwargs
         return self
 
-    def __enter__(self):
+    def __enter__(self: S) -> S:
         self.logger.info(
-            f'Running simulation: {self.__class__.__name__}, '
-            f'args = {self.args}, kwargs = {self.kwargs}'
+            f'Running simulation: {self.__class__.__name__}, kwargs = {self.kwargs}'
         )
-        self.run(*self.args, **self.kwargs)
+        self.run(**self.kwargs)
+        return self
 
     def __exit__(self, ex_type, ex_value, ex_traceback):
         self.logger.info(f'-> Exit simulation: {self.__class__.__name__}')
