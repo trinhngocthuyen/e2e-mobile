@@ -10,3 +10,4 @@ Getting Started
    ui_assertions_actions
    simulations
    inspecting_elements
+   examples

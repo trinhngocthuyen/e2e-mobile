@@ -13,8 +13,8 @@ To run a simulation, you simply need to use with the context manager syntax.
 .. code-block:: python
 
     def test_example(tester: Tester):
-        with tester.simulations.location_update(lat=0.001, lng=0.001): # 👈
-            pass # perform assertions here
+        with tester.simulations.location_update(lat=0.001, lng=0.001): # <-- trigger a simulation
+            pass # <-- perform assertions here
 
 There are various available simulations in ``tester.simulations`` that you can use:
 
@@ -32,7 +32,7 @@ Similar to ``Screen``, the purpose of having ``Simulation`` is to make your logi
 
     class PrepareDataSimulation(Simulation):
         def run(self, **kwargs):
-            pass # 👈 Implement your logic here
+            pass # <-- Implement your logic here
 
 Creating a new ``Simulation``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
