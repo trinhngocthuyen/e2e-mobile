@@ -18,6 +18,7 @@ def wd(
     prepare_simulator,
     merged_capabilities,
     setup_wd,
+    setup_wd_options,
 ) -> WD:
     if env.platform == Platform.IOS:
         options = XCUITestOptions()
@@ -25,6 +26,7 @@ def wd(
         options = UiAutomator2Options()
     logger.debug(f'Capabilities: {merged_capabilities}')
     options.load_capabilities(merged_capabilities)
+    setup_wd_options(options)
     host, port = appium_config.get('host'), appium_config.get('port')
     this = WD(f'http://{host}:{port}', options=options)
     setup_wd(this)
@@ -48,6 +50,14 @@ def appium_config():
 @pytest.fixture
 def setup_wd():
     def setup(wd: WD):
+        pass
+
+    return setup
+
+
+@pytest.fixture
+def setup_wd_options():
+    def setup(options: t.Union[XCUITestOptions, UiAutomator2Options]):
         pass
 
     return setup
