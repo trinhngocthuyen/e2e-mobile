@@ -6,11 +6,17 @@ def test_example(tester: Tester):
     tester.ui.button('Skip').tap()
 
     # Check elements in settings
-    tester.ui.button(xpath='//XCUIElementTypeButton[@label="Settings"]').tap()
+    # You can use xpath to query elements with non-obvious accessibility
+    tester.ui.button(xpath='//*[@label="Settings"]').tap()
     tester.ui.swipe('up')
     tester.ui.element('About the app').must_exist()
     tester.ui.swipe('down')
-    tester.ui.button(xpath='//XCUIElementTypeButton[@label="Close"]').tap()
+    # You can deal with discrepancies between iOS & Android
+    # by using different values for iOS & Android
+    tester.ui.button(
+        ios_xpath='//XCUIElementTypeButton[@label="Close"]',
+        adr_access_id='Close',
+    ).tap()
 
     # Check search screen
     tester.ui.button('Search').tap()
