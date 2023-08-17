@@ -6,6 +6,7 @@
 
    getting_started/index
    api/reference
+   faq
    contributing
 
 Indices and Tables

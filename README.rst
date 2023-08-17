@@ -3,6 +3,7 @@ End-to-end Testing Package for Mobile Apps
 
 .. _readthedocs: https://e2e-mobile.readthedocs.io
 .. _contributing guidelines: https://e2e-mobile.readthedocs.io/en/latest/contributing.html
+.. _FAQ: https://e2e-mobile.readthedocs.io/en/latest/faq.html#python-setup
 
 .. image:: https://img.shields.io/pypi/v/e2e-mobile.svg
     :target: https://pypi.org/project/e2e-mobile
@@ -23,6 +24,8 @@ Installation
 .. code-block:: console
 
    $ pip install --upgrade e2e-mobile
+
+First time hearing ``pip``? Check this `FAQ`_.
 
 Usage
 -----
