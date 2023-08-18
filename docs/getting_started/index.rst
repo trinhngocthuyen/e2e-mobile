@@ -11,3 +11,4 @@ Getting Started
    simulations
    inspecting_elements
    examples
+   troubleshooting
