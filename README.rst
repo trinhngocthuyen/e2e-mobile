@@ -18,6 +18,28 @@ End-to-end Testing Package for Mobile Apps
 
 .. image:: _static/recording.gif
 
+What does a test with this framework look like?
+-----------------------------------------------
+
+.. code-block:: python
+
+    from e2e import Tester
+
+    def test_tutorial(tester: Tester):
+        tester.ui.home.skip_tutorial()
+        tester.relaunch_app()
+        tester.ui.home.must_not_see_tutorial()
+
+    def test_settings(tester: Tester):
+        tester.ui.home.skip_tutorial()
+        tester.ui.home.go_to_settings()
+        tester.ui.settings.swipe('up')
+        tester.ui.settings.element('About the app').must_exist()
+        tester.ui.settings.swipe('down')
+        tester.ui.settings.close()
+
+`Get started with e2e-mobile now! <https://e2e-mobile.readthedocs.io/en/latest/getting_started/index.html>`_
+
 Installation
 ------------
 
