@@ -11,7 +11,10 @@ End-to-end Testing Package for Mobile Apps
 .. image:: https://img.shields.io/pypi/l/e2e-mobile.svg
     :target: https://github.com/trinhngocthuyen/e2e-mobile/blob/main/LICENSE
 
-``e2e-mobile`` is a Python package providing convenient setup for end-to-end testing in mobile apps.
+``e2e-mobile`` is a Python package providing convenient setup for end-to-end testing in mobile apps. This package is the combined magic of Appium and Pytest. It helps us:
+
+- Write tests once, for both platforms (iOS & Android).
+- Write reusable & readable tests that can be scale to support complex use cases.
 
 .. image:: _static/recording.gif
 
