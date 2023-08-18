@@ -14,7 +14,7 @@ End-to-end Testing Package for Mobile Apps
 ``e2e-mobile`` is a Python package providing convenient setup for end-to-end testing in mobile apps. This package is the combined magic of Appium and Pytest. It helps us:
 
 - Write tests once, for both platforms (iOS & Android).
-- Write reusable & readable tests that can be scale to support complex use cases.
+- Write reusable & readable tests that can scale to support complex use cases.
 
 .. image:: _static/recording.gif
 
