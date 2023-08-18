@@ -10,15 +10,16 @@ from e2e.core.utils import WDUtils
 
 @pytest.fixture
 def diagnostic(
-    screen_recording,
+    save_caplog,
+    save_screen_recording,
     save_page_source,
-    take_screenshot,
+    save_screenshot,
 ):
     pass
 
 
 @pytest.fixture
-def take_screenshot(wd_utils: WDUtils, artifacts_dir):
+def save_screenshot(wd_utils: WDUtils, artifacts_dir):
     yield
     wd_utils.take_screenshot(artifacts_dir / 'screenshot.png')
 
@@ -30,7 +31,7 @@ def save_page_source(wd_utils: WDUtils, artifacts_dir):
 
 
 @pytest.fixture
-def screen_recording(wd: WD, artifacts_dir: Path):
+def save_screen_recording(wd: WD, artifacts_dir: Path):
     if not shutil.which('ffmpeg'):
         logger.warning(
             'Skip recording screen because `ffmpeg` was not installed. '
@@ -49,3 +50,20 @@ def screen_recording(wd: WD, artifacts_dir: Path):
         path.write_bytes(data)
     except Exception as e:
         logger.warning(f'Unable to save recording. Error: {e}')
+
+
+@pytest.fixture
+def save_caplog(
+    caplog,
+    artifacts_dir,
+):
+    yield
+    path: Path = artifacts_dir / 'caplog.txt'
+    logger.info(f'Saving caplog to: {path}')
+    content = '\n'.join(
+        record.msg
+        for phase in ['setup', 'call', 'teardown']
+        for record in caplog.get_records(phase)
+        if record.name == logger.name
+    )
+    path.write_text(content)
