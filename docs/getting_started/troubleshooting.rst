@@ -14,7 +14,7 @@ After finishing your tests (with either a success or a failure), the artifacts w
 
 The artifacts of each run include:
 
-- **Appium log** of the session
+- **Appium log** of the session.
 - **Per-test artifacts**:
     - **Page source** (the UI hierarchy in xml format) of the app at the end of the test. You can use this xml to check the elements in the app at that time.
     - **Screenshot** of the app at the end of the test.
