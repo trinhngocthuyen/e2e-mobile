@@ -1,7 +1,8 @@
 import typing as t
 
+from cicd.core.logger import logger
+
 from e2e._typing import WD, Path, StrPath
-from e2e.core.logger import logger
 
 
 class WDUtils:

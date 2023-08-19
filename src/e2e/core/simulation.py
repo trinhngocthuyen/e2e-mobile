@@ -1,7 +1,8 @@
 import typing as t
 
+from cicd.core.mixin.logger import LoggerMixin
+
 from e2e._typing import WD
-from e2e.core.mixin.logger import LoggerMixin
 
 S = t.TypeVar('S', bound='Simulation')
 

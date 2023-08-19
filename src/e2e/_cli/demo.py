@@ -1,10 +1,11 @@
+import os
 import shutil
-import subprocess
 from pathlib import Path
 
 import click
-
-from e2e.core.logger import logger
+from cicd.core.logger import logger
+from cicd.core.utils.sh import sh
+from cicd.ios.mixin.build import BuildMixin
 
 __all__ = ['main']
 
@@ -19,28 +20,23 @@ class Demo:
         self.xcodebuild()
         self.copy_app_bundle()
 
-    def exec(self, cmd, **kwargs):
-        logger.debug(f'$ {cmd}')
-        subprocess.run(cmd, shell=True, check=True, **kwargs)
-
     def clone_project(self):
         if not self.tmp_dir.exists():
-            self.exec(
-                f'git clone --depth=1 --single-branch {self.repo_url} {self.tmp_dir}'
-            )
+            cmd = f'git clone --depth=1 --single-branch {self.repo_url} {self.tmp_dir}'
+            sh.exec(cmd, capture_output=False, log_cmd=True)
 
     def xcodebuild(self):
         logger.info('Building the project. This might take a while...')
-        cd_cmd = f'cd {self.tmp_dir}'
-        xcodebuild_cmd = (
-            'set -o pipefail && xcodebuild build -derivedDataPath DerivedData '
-            '-scheme Wikipedia -destination "generic/platform=iOS Simulator"'
-        )
-        if shutil.which('xcbeautify'):
-            xcodebuild_cmd += ' | xcbeautify'
-        elif shutil.which('xcpretty'):
-            xcodebuild_cmd += ' | xcpretty'
-        self.exec(f'{cd_cmd} && {xcodebuild_cmd}')
+        workdir = Path().absolute()
+        os.chdir(self.tmp_dir)
+        try:
+            BuildMixin(
+                scheme='Wikipedia',
+                destination='generic/platform=iOS Simulator',
+                derived_data_path='DerivedData',
+            ).start_building()
+        finally:
+            os.chdir(workdir)
 
     def copy_app_bundle(self):
         src_path = (

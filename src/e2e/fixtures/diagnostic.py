@@ -2,9 +2,9 @@ import base64
 import shutil
 
 import pytest
+from cicd.core.logger import logger
 
 from e2e._typing import WD, Path
-from e2e.core.logger import logger
 from e2e.core.utils import WDUtils
 
 
