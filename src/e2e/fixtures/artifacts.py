@@ -3,8 +3,7 @@ from datetime import datetime
 from pathlib import Path
 
 import pytest
-
-from e2e.core.logger import logger
+from cicd.core.logger import logger
 
 
 @pytest.fixture(scope='session')

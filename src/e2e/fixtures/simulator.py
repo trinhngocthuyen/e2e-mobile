@@ -1,9 +1,9 @@
 import typing as t
 
 import pytest
+from cicd.core.logger import logger
 from cicd.ios.simulator import Simulator
 
-from e2e.core.logger import logger
 from e2e.core.utils import WDUtils
 
 # TODO: Consider moving simulator to a separate pypi package

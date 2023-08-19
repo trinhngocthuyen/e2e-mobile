@@ -2,8 +2,9 @@ import time
 import typing as t
 from functools import cached_property
 
+from cicd.core.mixin.logger import LoggerMixin
+
 from e2e._typing import WD
-from e2e.core.mixin.logger import LoggerMixin
 from e2e.core.utils.wd import WDUtils
 
 __all__ = ['WDMixin']

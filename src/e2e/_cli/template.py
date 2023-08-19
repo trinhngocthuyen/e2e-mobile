@@ -3,8 +3,9 @@ import shutil
 import string
 import typing as t
 
+from cicd.core.logger import logger
+
 from e2e._typing import Path
-from e2e.core.logger import logger
 
 
 class Template:

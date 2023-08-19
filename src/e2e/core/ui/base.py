@@ -3,11 +3,10 @@ import typing as t
 from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.webdriver import WebDriver
 from appium.webdriver.webelement import WebElement
+from cicd.core.logger import logger
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-
-from e2e.core.logger import logger
 
 E = t.TypeVar('E', bound='Element')
 
