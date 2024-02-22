@@ -24,14 +24,14 @@ class ElementCallable(t.Generic[E]):
 
     def __call__(
         self,
-        access_id: t.Optional[str] = None,
-        ios_access_id: t.Optional[str] = None,
-        adr_access_id: t.Optional[str] = None,
-        xpath: t.Optional[str] = None,
-        ios_xpath: t.Optional[str] = None,
-        adr_xpath: t.Optional[str] = None,
-        timeout: t.Optional[float] = None,
-        poll_frequency: t.Optional[float] = None,
+        access_id: str | None = None,
+        ios_access_id: str | None = None,
+        adr_access_id: str | None = None,
+        xpath: str | None = None,
+        ios_xpath: str | None = None,
+        adr_xpath: str | None = None,
+        timeout: float | None = None,
+        poll_frequency: float | None = None,
         **kwargs,
     ) -> E:
         return self.dtype(
@@ -51,14 +51,14 @@ class ElementCallable(t.Generic[E]):
 
 class Element(WebElement):
     def __init__(self, **kwargs) -> None:
-        self.wd: t.Optional[WebDriver] = kwargs.get('wd')
-        self._element: t.Optional[WebElement] = kwargs.get('_element')
-        self.access_id: t.Optional[str] = kwargs.get('access_id')
-        self.ios_access_id: t.Optional[str] = kwargs.get('ios_access_id')
-        self.adr_access_id: t.Optional[str] = kwargs.get('adr_access_id')
-        self.xpath: t.Optional[str] = kwargs.get('xpath')
-        self.ios_xpath: t.Optional[str] = kwargs.get('ios_xpath')
-        self.adr_xpath: t.Optional[str] = kwargs.get('adr_xpath')
+        self.wd: WebDriver | None = kwargs.get('wd')
+        self._element: WebElement | None = kwargs.get('_element')
+        self.access_id: str | None = kwargs.get('access_id')
+        self.ios_access_id: str | None = kwargs.get('ios_access_id')
+        self.adr_access_id: str | None = kwargs.get('adr_access_id')
+        self.xpath: str | None = kwargs.get('xpath')
+        self.ios_xpath: str | None = kwargs.get('ios_xpath')
+        self.adr_xpath: str | None = kwargs.get('adr_xpath')
         self.failable: bool = kwargs.get('failable', False)
         self.timeout: float = kwargs.get('timeout') or 8
         self.poll_frequency = kwargs.get('poll_frequency') or 0

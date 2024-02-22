@@ -17,9 +17,9 @@ class Template:
     def copy_resource(
         self,
         path: Path,
-        to_path: t.Optional[Path] = None,
-        to_dir: t.Optional[Path] = None,
-        template_data: t.Optional[t.Dict[str, str]] = None,
+        to_path: Path | None = None,
+        to_dir: Path | None = None,
+        template_data: t.Dict[str, str] | None = None,
     ):
         if not to_path and not to_dir:
             raise ValueError('to_path and to_dir cannot be both None')

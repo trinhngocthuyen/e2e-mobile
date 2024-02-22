@@ -1,12 +1,11 @@
 import plistlib
-import typing as t
 
 from e2e._typing import Path, StrPath
 
 
 class AppUtils:
     @staticmethod
-    def get_app_id(app_path: StrPath) -> t.Optional[str]:
+    def get_app_id(app_path: StrPath) -> str | None:
         app_path = Path(app_path)
 
         def read_from_app_bundle() -> str:

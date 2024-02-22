@@ -1,5 +1,3 @@
-import typing as t
-
 import pytest
 from appium.options.android import UiAutomator2Options
 from appium.options.ios import XCUITestOptions
@@ -22,7 +20,7 @@ def setup_wd():
 
 @pytest.fixture
 def setup_wd_options():
-    def setup(options: t.Union[XCUITestOptions, UiAutomator2Options]):
+    def setup(options: XCUITestOptions | UiAutomator2Options):
         # Provide additional setup to WD options (XCUITestOptions/UiAutomator2Options)
         pass
 

@@ -21,8 +21,8 @@ class PushNotificationSimulation(Simulation):
 
     def ios_push_notification(
         self,
-        json_path: t.Optional[StrPath] = None,
-        payload: t.Optional[t.Dict[str, t.Any]] = None,
+        json_path: StrPath | None = None,
+        payload: t.Dict[str, t.Any] | None = None,
     ):
         with FileUtils.tempdir() as dir:
             if not json_path and not payload:
@@ -37,7 +37,7 @@ class PushNotificationSimulation(Simulation):
 
     def __call__(
         self,
-        payload: t.Optional[t.Dict[str, t.Any]] = None,
-        json_path: t.Optional[StrPath] = None,
+        payload: t.Dict[str, t.Any] | None = None,
+        json_path: StrPath | None = None,
     ) -> 'PushNotificationSimulation':
         return super().__call__(payload=payload, json_path=json_path)
