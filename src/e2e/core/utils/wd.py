@@ -18,12 +18,12 @@ class WDUtils:
         Path(path).write_text(self.wd.page_source)
 
     @staticmethod
-    def device_from_caps(caps: t.Dict[str, t.Any]) -> t.Optional[str]:
+    def device_from_caps(caps: t.Dict[str, t.Any]) -> str | None:
         keys = ['udid', 'appium:udid', 'deviceName', 'appium:deviceName']
         return next((caps[k] for k in keys if k in caps), None)
 
     @staticmethod
-    def app_id_from_caps(caps: t.Dict[str, t.Any]) -> t.Optional[str]:
+    def app_id_from_caps(caps: t.Dict[str, t.Any]) -> str | None:
         if value := caps.get('bundleId'):
             return value
         if value := caps.get('appPackage'):

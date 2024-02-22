@@ -37,10 +37,10 @@ class WDMixin(LoggerMixin):
         return (size['width'], size['height'])
 
     @property
-    def app_id(self) -> t.Optional[str]:
+    def app_id(self) -> str | None:
         return WDUtils.app_id_from_caps(self.wd.capabilities)
 
-    def relaunch_app(self, app_id: t.Optional[str] = None):
+    def relaunch_app(self, app_id: str | None = None):
         app_id = app_id or self.app_id
         self.logger.info(f'Relaunch the app: {app_id}')
         if not app_id:
@@ -51,8 +51,8 @@ class WDMixin(LoggerMixin):
     def swipe(
         self,
         direction: str = 'up',
-        xy_ratio_start: t.Optional[CoordinateRatio] = None,
-        xy_ratio_end: t.Optional[CoordinateRatio] = None,
+        xy_ratio_start: CoordinateRatio | None = None,
+        xy_ratio_end: CoordinateRatio | None = None,
         duration: float = 0,
     ):
         w, h = self.window_size
@@ -78,9 +78,9 @@ class WDMixin(LoggerMixin):
 
     def tap_coordinates(
         self,
-        xy: t.Union[t.List[Coordinate], Coordinate, None] = None,
-        xy_ratios: t.Union[t.List[CoordinateRatio], CoordinateRatio, None] = None,
-        duration: t.Optional[float] = None,
+        xy: t.List[Coordinate] | Coordinate | None = None,
+        xy_ratios: t.List[CoordinateRatio] | CoordinateRatio | None = None,
+        duration: float | None = None,
     ):
         positions = []
         if isinstance(xy, tuple):
@@ -113,8 +113,8 @@ class WDMixin(LoggerMixin):
 
     def hide_keyboard(
         self,
-        key_name: t.Optional[str] = None,
-        key: t.Optional[str] = None,
-        strategy: t.Optional[str] = None,
+        key_name: str | None = None,
+        key: str | None = None,
+        strategy: str | None = None,
     ):
         self.wd.hide_keyboard(key_name=key_name, key=key, strategy=strategy)

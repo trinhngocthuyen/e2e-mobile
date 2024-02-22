@@ -1,5 +1,3 @@
-import typing as t
-
 from cicd.core.utils.sh import sh
 
 from e2e.core.env import Platform, env
@@ -30,6 +28,6 @@ class LocationUpdateSimulation(Simulation):
         sh.exec(f'xcrun simctl location {device} set {lat},{lng}')
 
     def __call__(
-        self, lat: t.Optional[float] = None, lng: t.Optional[float] = None
+        self, lat: float | None = None, lng: float | None = None
     ) -> 'LocationUpdateSimulation':
         return super().__call__(lat=lat, lng=lng)

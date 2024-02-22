@@ -13,8 +13,6 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
 ]
 keywords = ["ci", "cd", "ci/cd", "mobile", "ios"]
@@ -25,7 +23,7 @@ dependencies = [
     "click",
     "seeeye>=0.0.5",
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 
 [project.scripts]
 e2e = 'e2e.cli:main'

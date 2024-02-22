@@ -23,8 +23,8 @@ class DynamicAttrsMixin:
     def set_dynamic_attrs(
         self,
         cls: t.Type[D],
-        attr_kwargs: t.Optional[t.Dict[str, t.Any]] = None,
-        load_source_in_dir: t.Optional[str] = None,
+        attr_kwargs: t.Dict[str, t.Any] | None = None,
+        load_source_in_dir: str | None = None,
     ):
         if load_source_in_dir:
             self._load_source(load_source_in_dir)

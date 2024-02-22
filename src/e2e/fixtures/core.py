@@ -57,7 +57,7 @@ def setup_wd():
 
 @pytest.fixture
 def setup_wd_options():
-    def setup(options: t.Union[XCUITestOptions, UiAutomator2Options]):
+    def setup(options: XCUITestOptions | UiAutomator2Options):
         pass
 
     return setup
