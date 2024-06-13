@@ -89,7 +89,7 @@ To create a new screen, you simply need to run:
 
 .. code-block:: console
 
-    $ e2e new screen [name-in-snake-case]
+    $ e2e new screen [name_in_snake_case]
 
 For example, to create a Settings screen, run:
 

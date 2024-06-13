@@ -41,7 +41,7 @@ For convenience, we provide the CLI usage for you to quickly create a new simula
 
 .. code-block:: console
 
-    $ e2e new simulation [name-in-snake-case]
+    $ e2e new simulation [name_in_snake_case]
 
 For example, to create a "prepare data" simulation, run:
 
