@@ -40,17 +40,20 @@ def wd_utils(wd):
 
 
 @pytest.fixture(scope='session')
-def appium_config(parallel_worker_id):
+def ports_config(parallel_worker_id):
+    offset = parallel_worker_id or 0
     return {
-        'host': '127.0.0.1',
-        'port': 4723 + parallel_worker_id,
+        'appium': 4723 + offset,
+        'wdaLocalPort': 8100 + offset,
+        'mjpegServerPort': 9100 + offset,
     }
 
 
 @pytest.fixture(scope='session')
-def wda_config(parallel_worker_id):
+def appium_config(ports_config):
     return {
-        'wdaLocalPort': 8100 + parallel_worker_id,
+        'host': '127.0.0.1',
+        'port': ports_config.get('appium'),
     }
 
 
@@ -73,9 +76,12 @@ def setup_wd_options():
 @pytest.fixture
 def merged_capabilities(
     capabilities: t.Dict[str, t.Any],
-    wda_config: t.Dict[str, t.Any],
+    ports_config: t.Dict[str, t.Any],
 ):
-    default = {}
+    default = {
+        'wdaLocalPort': ports_config.get('wdaLocalPort'),
+        'mjpegServerPort': ports_config.get('mjpegServerPort'),
+    }
     app_path = capabilities.get('app') or capabilities.get('appium:app')
     if not capabilities.get('bundleId') and not capabilities.get('appPackage'):
         key = {
@@ -91,7 +97,7 @@ def merged_capabilities(
                 'It is recommended to explicitly set this value. For example: '
                 f"{{'{key}': 'com.example.app'}}"
             )
-    return {**default, **wda_config, **capabilities}
+    return {**default, **capabilities}
 
 
 @pytest.fixture
