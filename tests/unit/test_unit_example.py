@@ -1,3 +1,3 @@
 # Just an example test
-def test_example():
+def test_unit_example():
     pass
