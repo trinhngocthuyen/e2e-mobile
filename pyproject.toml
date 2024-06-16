@@ -29,6 +29,8 @@ requires-python = ">=3.10"
 [project.scripts]
 e2e = 'e2e.cli:main'
 
+[project.entry-points."e2e.cli_plugins"]
+
 [project.optional-dependencies]
 dev = [
     "setuptools>=61.0.0",
