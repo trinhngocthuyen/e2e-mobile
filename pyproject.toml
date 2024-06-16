@@ -55,8 +55,5 @@ version = {file = "VERSION"}
 where = ["src"]
 namespaces = true
 
-[tool.black]
-skip_string_normalization = true
-
 [tool.pytest.ini_options]
 addopts = "-s -v --cov=. --cov-report=xml --log-file=.artifacts/latest/pytest.log --html=.artifacts/latest/report.html"
