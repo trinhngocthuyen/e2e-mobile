@@ -23,7 +23,7 @@ What does a test with this framework look like?
 
 .. code-block:: python
 
-    from e2e import Tester
+    from e2e.tester import Tester
 
     def test_tutorial(tester: Tester):
         tester.ui.home.skip_tutorial()

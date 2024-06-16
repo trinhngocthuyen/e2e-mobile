@@ -28,7 +28,7 @@ Similar to ``Screen``, the purpose of having ``Simulation`` is to make your logi
 
 .. code-block:: python
 
-    from e2e import Simulation
+    from e2e.core import Simulation
 
     class PrepareDataSimulation(Simulation):
         def run(self, **kwargs):

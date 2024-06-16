@@ -1,4 +1,4 @@
-from e2e import Screen
+from e2e.core import Screen
 
 
 class ExampleScreen(Screen):

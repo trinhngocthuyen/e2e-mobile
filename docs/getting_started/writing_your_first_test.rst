@@ -37,7 +37,7 @@ For type hints, we can specify its type (as ``Tester``) as follows:
 
 .. code-block:: python
 
-    from e2e import Tester
+    from e2e.tester import Tester
 
 
     def test_settings(tester: Tester):
