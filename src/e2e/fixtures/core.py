@@ -40,10 +40,17 @@ def wd_utils(wd):
 
 
 @pytest.fixture(scope='session')
-def appium_config():
+def appium_config(parallel_worker_id):
     return {
         'host': '127.0.0.1',
-        'port': 4723,
+        'port': 4723 + parallel_worker_id,
+    }
+
+
+@pytest.fixture(scope='session')
+def wda_config(parallel_worker_id):
+    return {
+        'wdaLocalPort': 8100 + parallel_worker_id,
     }
 
 
@@ -64,7 +71,10 @@ def setup_wd_options():
 
 
 @pytest.fixture
-def merged_capabilities(capabilities: t.Dict[str, t.Any]):
+def merged_capabilities(
+    capabilities: t.Dict[str, t.Any],
+    wda_config: t.Dict[str, t.Any],
+):
     default = {}
     app_path = capabilities.get('app') or capabilities.get('appium:app')
     if not capabilities.get('bundleId') and not capabilities.get('appPackage'):
@@ -81,7 +91,7 @@ def merged_capabilities(capabilities: t.Dict[str, t.Any]):
                 'It is recommended to explicitly set this value. For example: '
                 f"{{'{key}': 'com.example.app'}}"
             )
-    return {**default, **capabilities}
+    return {**default, **wda_config, **capabilities}
 
 
 @pytest.fixture
@@ -90,17 +100,24 @@ def capabilities():
 
 
 @pytest.fixture(scope='session')
-def appium_service(appium_config, session_artifacts_dir):
-    logger.info('Starting Appium...')
+def appium_service(
+    appium_config,
+    parallel_worker_id,
+    session_artifacts_dir,
+):
+    host, port = appium_config.get('host'), appium_config.get('port')
+    logger.info(f'Starting Appium ({host}:{port})..')
+
+    suffix = '' if parallel_worker_id is None else f'_{parallel_worker_id + 1}'
+    appium_log_path = session_artifacts_dir / f'appium{suffix}.log'
     service = AppiumService()
-    appium_log_path = session_artifacts_dir / 'appium.log'
     with appium_log_path.open('wb') as f:
         service.start(
             args=[
                 '--address',
-                appium_config.get('host'),
+                host,
                 '-p',
-                str(appium_config.get('port')),
+                str(port),
             ],
             stdout=f,
             stderr=f,

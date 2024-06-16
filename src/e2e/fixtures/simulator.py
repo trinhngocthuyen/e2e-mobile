@@ -10,9 +10,15 @@ from e2e.core.utils import WDUtils
 
 
 @pytest.fixture
-def prepare_simulator(merged_capabilities: t.Dict[str, t.Any]):
+def prepare_simulator(
+    merged_capabilities: t.Dict[str, t.Any],
+    parallel_worker_id: t.Optional[int],
+) -> str:
     device = WDUtils.device_from_caps(merged_capabilities)
     if not device:
-        with Simulator(name='E2E') as simulator:
+        name = 'E2E' if parallel_worker_id is None else f'E2E-{parallel_worker_id + 1}'
+        with Simulator(name=name) as simulator:
             device = simulator.name
+            merged_capabilities['deviceName'] = device
     logger.debug(f'Using device: {device}')
+    return device
