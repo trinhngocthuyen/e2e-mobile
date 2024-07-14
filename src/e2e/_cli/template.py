@@ -11,7 +11,7 @@ from e2e._typing import Path
 class Template:
     def __init__(self, name: str) -> None:
         self.name = name
-        self.root_templates_dir = importlib.resources.path('e2e', '_templates')
+        self.root_templates_dir = importlib.resources.path('e2e._templates', '')
         self.templates_dir = self.root_templates_dir / name
 
     def copy_resource(
