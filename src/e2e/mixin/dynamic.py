@@ -27,10 +27,16 @@ class DynamicAttrsMixin:
         load_source_in_dir: str | None = None,
     ):
         if load_source_in_dir:
-            self._load_source(load_source_in_dir)
+            modules = self._load_source(load_source_in_dir)
         if not attr_kwargs:
             attr_kwargs = {}
-        for subclass in cls.__subclasses__():
+        for subclass in all_subclasses(cls):
+            if subclass.__module__ not in modules:
+                continue
             attr_name = subclass.__module__.split('.')[-1]
             attr = subclass(**attr_kwargs)
             setattr(self, attr_name, attr)
+
+
+def all_subclasses(cls):
+    return set(cls.__subclasses__()).union(s for c in cls.__subclasses__() for s in all_subclasses(c))

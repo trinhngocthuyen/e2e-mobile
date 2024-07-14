@@ -18,11 +18,11 @@ class Simulations(SimulationsTyping, DynamicAttrsMixin):
     location_update: LocationUpdateSimulation
     push_notification: PushNotificationSimulation
 
-    def __init__(self, wd: WD) -> None:
+    def __init__(self, wd: WD, source_dir='e2e_ext/simulations') -> None:
         self.wd = wd
         self.base = Simulation(wd=wd)
         self.set_dynamic_attrs(
             cls=Simulation,
             attr_kwargs={'wd': self.wd},
-            load_source_in_dir='e2e_ext/simulations',
+            load_source_in_dir=source_dir,
         )

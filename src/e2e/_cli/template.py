@@ -9,9 +9,10 @@ from e2e._typing import Path
 
 
 class Template:
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, **kwargs) -> None:
+        root_templates_pkg = kwargs.get('root_templates_pkg') or 'e2e._templates'
         self.name = name
-        self.root_templates_dir = importlib.resources.path('e2e._templates', '')
+        self.root_templates_dir = importlib.resources.path(root_templates_pkg, '')
         self.templates_dir = self.root_templates_dir / name
 
     def copy_resource(
@@ -34,7 +35,8 @@ class Template:
             else:
                 shutil.copyfile(path, to_path)
 
-    def unpack(self):
+    def unpack(self, dir=None):
+        dir = Path(dir or self.name)
         logger.info(f'Generate `{self.name}` dir from templates')
         for path in self.templates_dir.glob('**/*.template'):
-            self.copy_resource(path=path, to_dir=Path(self.name))
+            self.copy_resource(path=path, to_dir=dir)

@@ -17,11 +17,11 @@ class Screens(
     DynamicAttrsMixin,
     UIMixin,
 ):
-    def __init__(self, wd: WD) -> None:
+    def __init__(self, wd: WD, source_dir='e2e_ext/screens') -> None:
         self.wd = wd
         self.base = Screen(wd=wd)
         self.set_dynamic_attrs(
             cls=Screen,
             attr_kwargs={'wd': self.wd},
-            load_source_in_dir='e2e_ext/screens',
+            load_source_in_dir=source_dir,
         )

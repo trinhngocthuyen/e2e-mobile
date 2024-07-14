@@ -17,7 +17,7 @@ def update_typing(path: Path, name: str, category: str, cls_name: str):
     lines = content.splitlines()
 
     def insert_import_statement():
-        import_line = f'from e2e_ext.{category}s.{name} import {cls_name}'
+        import_line = f'from .{category}s.{name} import {cls_name}'
         if import_line not in content:
             lines.insert(0, import_line)
 
@@ -35,20 +35,27 @@ def update_typing(path: Path, name: str, category: str, cls_name: str):
     path.write_text('\n'.join(lines) + '\n')
 
 
-def gen_resource_and_update_typing(name: str, category: str):
+def gen_resource_and_update_typing(category: str, **kwargs):
+    name = kwargs.pop('name')
+    dir = Path(kwargs.get('dir') or 'e2e_ext')
     cls_prefix = name.title().replace('_', '')
     cls_name = f'{cls_prefix}{category.title()}'
-    generated_path = Path(f'e2e_ext/{category}s/{name}.py')
+    generated_path = dir / f'{category}s' / f'{name}.py'
+    typing_path = dir / '_typing.py'
+
+    if not typing_path.exists():
+        from .init import main as init
+        init.callback(**kwargs)
 
     logger.info(f'Generate class `{cls_name}` to file: {generated_path}')
-    template = Template('new')
+    template = Template('new', root_templates_pkg=kwargs.get('root_templates_pkg'))
     template.copy_resource(
         path=template.templates_dir / f'{category}.py.template',
         to_path=generated_path,
         template_data={'prefix': cls_prefix},
     )
     update_typing(
-        path=Path('e2e_ext/_typing.py'),
+        path=typing_path,
         name=name,
         category=category,
         cls_name=cls_name,
@@ -57,20 +64,18 @@ def gen_resource_and_update_typing(name: str, category: str):
 
 @main.command
 @click.argument('name')
+@click.option('--dir', help='Dir to extract the templates')
+@click.option('--root-templates-pkg', help='Root templates pkg')
 def screen(**kwargs):
-    gen_resource_and_update_typing(
-        name=kwargs.get('name'),
-        category='screen',
-    )
+    gen_resource_and_update_typing(category='screen', **kwargs)
 
 
 @main.command
 @click.argument('name')
+@click.option('--dir', help='Dir to extract the templates')
+@click.option('--root-templates-pkg', help='Root templates pkg')
 def simulation(**kwargs):
-    gen_resource_and_update_typing(
-        name=kwargs.get('name'),
-        category='simulation',
-    )
+    gen_resource_and_update_typing(category='simulation', **kwargs)
 
 
 if __name__ == '__main__':

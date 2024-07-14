@@ -4,10 +4,14 @@ from .template import Template
 
 
 @click.command
-def main():
+@click.option('--dir', help='Dir to extract the templates')
+@click.option('--tests/--no-tests', help='Whether to generate example tests', default=True)
+def main(**kwargs):
     '''Init the e2e project.'''
-    Template('e2e_ext').unpack()
-    Template('tests').unpack()
+    dir = kwargs.get('dir')
+    Template('e2e_ext', **kwargs).unpack(dir=dir)
+    if kwargs.get('tests'):
+        Template('tests', **kwargs).unpack(dir=dir)
 
 
 if __name__ == '__main__':
