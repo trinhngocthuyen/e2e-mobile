@@ -52,7 +52,7 @@ The given test runs against the Wikipedia app.
 
     Prior to running the above test, you might want to build the `Wikipedia iOS project <https://github.com/wikimedia/wikipedia-ios>`_.
     Simply run: ``make demo.build`` or ``e2e demo build``.
-    The app will be placed under ``tmp/apps/example.app``
+    The app will be placed under ``tmp/apps/Wikipedia.zip``
 
 **Step 5: Format changes**
 

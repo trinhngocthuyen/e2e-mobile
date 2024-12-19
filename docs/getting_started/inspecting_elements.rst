@@ -62,7 +62,7 @@ The minimal capabilities include ``app``, ``automationName`` and ``platformName`
 .. code-block:: json
 
     {
-        "app": "/Users/thuyen/projects/e2e-mobile/tmp/apps/example.app",
+        "app": "/Users/thuyen/projects/e2e-mobile/tmp/apps/Wikipedia.zip",
         "automationName": "xcuitest",
         "platformName": "iOS"
     }

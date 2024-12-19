@@ -4,6 +4,7 @@ from pathlib import Path
 
 import click
 from cicd.core.logger import logger
+from cicd.core.utils.file import FileUtils
 from cicd.core.utils.sh import sh
 from cicd.ios.mixin.build import BuildMixin
 
@@ -14,8 +15,14 @@ class Demo:
     def __init__(self) -> None:
         self.tmp_dir = Path('/tmp/wikipedia-ios')
         self.repo_url = 'https://github.com/wikimedia/wikipedia-ios.git'
+        self.dst_path = Path('tmp/apps/Wikipedia.zip')
+        self.dst_path.parent.mkdir(parents=True, exist_ok=True)
 
-    def build(self):
+    def build(self, prebuilt=False, **kwargs):
+        if prebuilt:
+            cmd = f'curl https://raw.githubusercontent.com/trinhngocthuyen/prebuilt/main/wikipedia/Wikipedia.zip -o {self.dst_path}'
+            sh.exec(cmd, log_cmd=True, capture_output=False)
+            return
         self.clone_project()
         self.xcodebuild()
         self.copy_app_bundle()
@@ -27,6 +34,7 @@ class Demo:
 
     def xcodebuild(self):
         logger.info('Building the project. This might take a while...')
+        logger.debug('Using Xcode: {}'.format(sh.exec('xcode-select -p')))
         workdir = Path().absolute()
         os.chdir(self.tmp_dir)
         try:
@@ -39,19 +47,17 @@ class Demo:
             os.chdir(workdir)
 
     def copy_app_bundle(self):
-        src_path = (
+        build_dir = (
             self.tmp_dir
             / 'DerivedData'
             / 'Build'
             / 'Products'
             / 'Debug-iphonesimulator'
-            / 'Wikipedia.app'
         )
-        dst_path = Path('tmp/apps/example.app')
-        logger.info(f'Copy app bundle from {src_path} to {dst_path}')
-        if dst_path.exists():
-            shutil.rmtree(dst_path)
-        shutil.copytree(src_path, dst_path)
+        if self.dst_path.exists():
+            shutil.rmtree(self.dst_path)
+        sh.exec(f'cd "{build_dir.absolute()}" && zip -r Wikipedia.zip Wikipedia.app')
+        FileUtils.copy(build_dir / 'Wikipedia.zip', self.dst_path)
 
 
 @click.group()
@@ -60,8 +66,9 @@ def main():
 
 
 @main.command
-def build():
-    Demo().build()
+@click.option('--prebuilt', is_flag=True)
+def build(**kwargs):
+    Demo().build(**kwargs)
 
 
 if __name__ == '__main__':
