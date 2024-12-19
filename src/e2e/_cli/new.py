@@ -45,6 +45,7 @@ def gen_resource_and_update_typing(category: str, **kwargs):
 
     if not typing_path.exists():
         from .init import main as init
+
         init.callback(**kwargs)
 
     logger.info(f'Generate class `{cls_name}` to file: {generated_path}')
