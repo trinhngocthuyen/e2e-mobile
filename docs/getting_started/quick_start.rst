@@ -38,7 +38,7 @@ No worries, you simply need to run:
 
     $ e2e demo build
 
-This command clones the `Wikipedia iOS project <https://github.com/wikimedia/wikipedia-ios>`_, builds it, and place the ``.app`` bundle under ``tmp/apps/example.app``.
+This command clones the `Wikipedia iOS project <https://github.com/wikimedia/wikipedia-ios>`_, builds it, and place the ``.app`` bundle under ``tmp/apps/Wikipedia.zip``.
 
 .. note::
 

@@ -3,7 +3,7 @@ Writing Your First Test
 
 Let's create a simple test.
 
-For the sake of demonstration, we're going to use the Wikipedia iOS app for testing. In case you did not have the app under ``tmp/apps/example.app``, you can simply run ``e2e demo build``. This command clones the project and builds the app for you.
+For the sake of demonstration, we're going to use the Wikipedia iOS app for testing. In case you did not have the app under ``tmp/apps/Wikipedia.zip``, you can simply run ``e2e demo build``. This command clones the project and builds the app for you.
 
 Let's say we are testing the Settings screen in the app.
 
