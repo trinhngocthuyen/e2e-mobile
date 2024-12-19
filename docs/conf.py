@@ -14,6 +14,9 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../src'))
 
+if not os.path.exists('_static'):
+    os.symlink(os.path.abspath('../_static'), '_static')
+
 
 # -- Project information -----------------------------------------------------
 
