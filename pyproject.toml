@@ -57,5 +57,9 @@ version = {file = "VERSION"}
 where = ["src"]
 namespaces = true
 
+[tool.isort]
+known_inhouse = "cicd"
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "INHOUSE", "FIRSTPARTY", "LOCALFOLDER"]
+
 [tool.pytest.ini_options]
 addopts = "-s -v --cov=. --cov-report=xml --log-file=.artifacts/latest/pytest.log --html=.artifacts/latest/report.html"
