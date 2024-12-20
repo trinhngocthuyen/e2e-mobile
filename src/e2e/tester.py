@@ -11,7 +11,7 @@ ScreensType = t.TypeVar('ScreensType', bound=Screens)
 SimulationsType = t.TypeVar('SimulationsType', bound=Simulations)
 
 
-class Tester(t.Generic[ScreensType, SimulationsType], WDMixin):
+class Tester(WDMixin):
     __test__ = False
 
     def __init__(self, wd: WD, source_dir='e2e_ext', **kwargs) -> None:
