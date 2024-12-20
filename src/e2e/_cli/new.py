@@ -1,4 +1,5 @@
 import click
+
 from cicd.core.logger import logger
 
 from e2e._typing import Path

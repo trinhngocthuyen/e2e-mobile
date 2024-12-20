@@ -1,6 +1,7 @@
 import typing as t
 
 import pytest
+
 from cicd.core.logger import logger
 from cicd.ios.simulator import Simulator
 

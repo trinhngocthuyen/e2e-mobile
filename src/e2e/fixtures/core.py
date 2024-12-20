@@ -5,8 +5,9 @@ from appium.options.android import UiAutomator2Options
 from appium.options.ios import XCUITestOptions
 from appium.webdriver.appium_connection import AppiumConnection
 from appium.webdriver.appium_service import AppiumService
-from cicd.core.logger import logger
 from selenium.webdriver.remote.client_config import ClientConfig
+
+from cicd.core.logger import logger
 
 from e2e._typing import WD
 from e2e.core.env import Platform, env

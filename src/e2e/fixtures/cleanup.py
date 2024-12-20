@@ -1,4 +1,5 @@
 import pytest
+
 from cicd.core.logger import logger
 from cicd.core.utils.sh import sh
 
