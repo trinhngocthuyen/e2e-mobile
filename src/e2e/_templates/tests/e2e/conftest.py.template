@@ -30,6 +30,6 @@ def setup_wd_options():
 @pytest.fixture
 def capabilities():
     return {
-        'app': 'tmp/apps/Wikipedia.zip',  # TODO: Update the path to the app here
-        'bundleId': 'org.wikimedia.wikipedia',
+        'appium:app': 'tmp/apps/Wikipedia.zip',  # TODO: Update the path to the app here
+        'appium:bundleId': 'org.wikimedia.wikipedia',
     }

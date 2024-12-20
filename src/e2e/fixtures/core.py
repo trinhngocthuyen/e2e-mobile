@@ -3,12 +3,14 @@ import typing as t
 import pytest
 from appium.options.android import UiAutomator2Options
 from appium.options.ios import XCUITestOptions
+from appium.webdriver.appium_connection import AppiumConnection
 from appium.webdriver.appium_service import AppiumService
 from cicd.core.logger import logger
+from selenium.webdriver.remote.client_config import ClientConfig
 
 from e2e._typing import WD
 from e2e.core.env import Platform, env
-from e2e.core.utils import AppUtils, WDUtils
+from e2e.core.utils import AppUtils, Caps, WDUtils
 
 
 @pytest.fixture
@@ -19,7 +21,7 @@ def wd(
     merged_capabilities,
     setup_wd,
     setup_wd_options,
-) -> WD:
+) -> WD:  # type: ignore
     if env.platform == Platform.IOS:
         options = XCUITestOptions()
     elif env.platform == Platform.ADR:
@@ -28,7 +30,10 @@ def wd(
     options.load_capabilities(merged_capabilities)
     setup_wd_options(options)
     host, port = appium_config.get('host'), appium_config.get('port')
-    this = WD(f'http://{host}:{port}', options=options)
+
+    client_config = ClientConfig(f'http://{host}:{port}')
+    connection = AppiumConnection(client_config=client_config)
+    this = WD(connection, options=options)
     setup_wd(this)
     yield this
     this.quit()
@@ -82,21 +87,16 @@ def merged_capabilities(
         'wdaLocalPort': ports_config.get('wdaLocalPort'),
         'mjpegServerPort': ports_config.get('mjpegServerPort'),
     }
-    app_path = capabilities.get('app') or capabilities.get('appium:app')
-    if not capabilities.get('bundleId') and not capabilities.get('appPackage'):
-        key = {
-            Platform.IOS: 'bundleId',
-            Platform.ADR: 'appPackage',
-        }.get(env.platform)
-        if app_id := AppUtils.get_app_id(app_path=app_path):
-            capabilities[key] = app_id
-        else:
-            logger.warning(
-                f'The key `{key}` was not set in capabilities. '
-                'This might lead to some unexpected behaviors. '
-                'It is recommended to explicitly set this value. For example: '
-                f"{{'{key}': 'com.example.app'}}"
-            )
+    caps = Caps(capabilities)
+    app_path = caps.value('app')
+    app_id = caps.app_id or AppUtils.get_app_id(app_path=app_path)
+    if not app_id:
+        logger.warning(
+            f'App id was not set in capabilities (`bundleId` in iOS, `appPackage` in Android). '
+            'This might lead to some unexpected behaviors. '
+            'It is recommended to explicitly set this value. For example: '
+            f"{{'bundleId': 'com.example.app'}}"
+        )
     return {**default, **capabilities}
 
 
