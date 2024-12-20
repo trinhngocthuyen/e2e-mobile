@@ -133,5 +133,5 @@ dmypy.json
 # ---------------------
 tmp/
 docs/api/e2e*
-docs/_static # Symlink to _static
+docs/_static
 .artifacts/
