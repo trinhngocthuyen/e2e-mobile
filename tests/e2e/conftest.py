@@ -5,7 +5,7 @@ from appium.options.ios import XCUITestOptions
 from e2e._typing import WD
 
 pytest_plugins = [
-    'e2e.fixtures',
+    'e2e.pytest_plugins',
 ]
 
 
