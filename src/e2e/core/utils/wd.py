@@ -4,6 +4,8 @@ from cicd.core.logger import logger
 
 from e2e._typing import WD, Path, StrPath
 
+from .caps import Caps
+
 
 class WDUtils:
     def __init__(self, wd: WD) -> None:
@@ -19,12 +21,8 @@ class WDUtils:
 
     @staticmethod
     def device_from_caps(caps: t.Dict[str, t.Any]) -> str | None:
-        keys = ['udid', 'appium:udid', 'deviceName', 'appium:deviceName']
-        return next((caps[k] for k in keys if k in caps), None)
+        return Caps(caps).device
 
     @staticmethod
     def app_id_from_caps(caps: t.Dict[str, t.Any]) -> str | None:
-        if value := caps.get('bundleId'):
-            return value
-        if value := caps.get('appPackage'):
-            return value
+        return Caps(caps).app_id
