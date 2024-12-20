@@ -58,6 +58,7 @@ def save_caplog(
     caplog,
     artifacts_dir,
 ):
+    print(f'--> use save_caplog')
     yield
     path: Path = artifacts_dir / 'caplog.txt'
     logger.info(f'Saving caplog to: {path}')
