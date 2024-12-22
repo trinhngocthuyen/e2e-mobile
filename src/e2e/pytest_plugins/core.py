@@ -1,135 +1,92 @@
-import typing as t
+from collections import defaultdict
 
 import pytest
-from appium.options.android import UiAutomator2Options
-from appium.options.ios import XCUITestOptions
-from appium.webdriver.appium_connection import AppiumConnection
-from appium.webdriver.appium_service import AppiumService
-from selenium.webdriver.remote.client_config import ClientConfig
 
 from cicd.core.logger import logger
 
-from e2e._typing import WD
-from e2e.core.env import Platform, env
-from e2e.core.utils import AppUtils, Caps, WDUtils
+from e2e.core.config import E2EConfig
+
+from .base import Plugin
 
 
-@pytest.fixture
-def wd(
-    appium_config,
-    appium_service,
-    prepare_simulator,
-    merged_capabilities,
-    setup_wd,
-    setup_wd_options,
-) -> WD:  # type: ignore
-    if env.platform == Platform.IOS:
-        options = XCUITestOptions()
-    elif env.platform == Platform.ADR:
-        options = UiAutomator2Options()
-    logger.debug(f'Capabilities: {merged_capabilities}')
-    options.load_capabilities(merged_capabilities)
-    setup_wd_options(options)
-    host, port = appium_config.get('host'), appium_config.get('port')
-
-    client_config = ClientConfig(f'http://{host}:{port}')
-    connection = AppiumConnection(client_config=client_config)
-    this = WD(connection, options=options)
-    setup_wd(this)
-    yield this
-    this.quit()
+@pytest.fixture(scope='session', autouse=True)
+def e2e_config(request):
+    '''E2E config including Appium server URL, artifacts dir, etc..'''
+    return E2EConfig.from_pytest_config(request.config)
 
 
-@pytest.fixture
-def wd_utils(wd):
-    return WDUtils(wd=wd)
+@pytest.fixture(scope='session', autouse=True)
+def e2e_hook_fixture_session():
+    '''A special fixture for fixtures cache in e2e-mobile. Do NOT override it.'''
+    return 'session'
 
 
-@pytest.fixture(scope='session')
-def ports_config(parallel_worker_id):
-    offset = parallel_worker_id or 0
-    return {
-        'appium': 4723 + offset,
-        'wdaLocalPort': 8100 + offset,
-        'mjpegServerPort': 9100 + offset,
+@pytest.fixture(scope='function', autouse=True)
+def e2e_hook_fixture_function():
+    '''A special fixture for fixtures cache in e2e-mobile. Do NOT override it.'''
+    return 'function'
+
+
+class CorePlugin(Plugin):
+    hook_fixtures = {
+        e2e_hook_fixture_session.__name__: [],
+        e2e_hook_fixture_function.__name__: ['caplog', 'capsys'],
     }
 
+    @classmethod
+    def load_order(cls):
+        return 1e9
 
-@pytest.fixture(scope='session')
-def appium_config(ports_config):
-    return {
-        'host': '127.0.0.1',
-        'port': ports_config.get('appium'),
-    }
+    @pytest.hookimpl(tryfirst=True, hookwrapper=True)
+    def pytest_runtest_protocol(self, item, nextitem):
+        self._cache.set('item', item)
+        yield
+        delattr(self._cache, 'item')
+        self.wd.quit()  # Quit driver to release Appium resources
+        self.destroy_cached_fixtures(scope='function')
 
+    @pytest.hookimpl(tryfirst=True, hookwrapper=True)
+    def pytest_fixture_setup(self, fixturedef, request):
+        def track_fixure(name, scope):
+            if not self._cache._fixtures:
+                self._cache._fixtures = defaultdict(set)
+            self._cache._fixtures[scope].add(name)
 
-@pytest.fixture
-def setup_wd():
-    def setup(wd: WD):
-        pass
+        def load_hook_fixtures():
+            for name in self.hook_fixtures.get(fixturedef.argname, []):
+                try:
+                    self._cache.set(name, request.getfixturevalue(name))
+                    track_fixure(name, outcome._result)
+                except Exception as e:
+                    logger.error(f'Cannot load fixture {name}. Error: {e}')
 
-    return setup
+        outcome = yield
+        self._cache.set(fixturedef.argname, outcome._result)
+        track_fixure(fixturedef.argname, fixturedef.scope)
+        load_hook_fixtures()
 
+    @pytest.hookimpl(tryfirst=True, hookwrapper=True)
+    def pytest_runtest_setup(self, item):
+        yield
 
-@pytest.fixture
-def setup_wd_options():
-    def setup(options: XCUITestOptions | UiAutomator2Options):
-        pass
+    @pytest.hookimpl(tryfirst=True, hookwrapper=True)
+    def pytest_sessionstart(self, session):
+        yield
 
-    return setup
+    @pytest.hookimpl(tryfirst=True, hookwrapper=True)
+    def pytest_sessionfinish(self, session, exitstatus):
+        if self.is_non_exec_session(session):
+            yield
+            return
+        yield
+        self.destroy_cached_fixtures(scope='session')
 
+    @pytest.hookimpl(tryfirst=True)
+    def pytest_configure(self, config):
+        self._cache.set('pytest_config', config)
+        self._cache.set('e2e_config', E2EConfig.from_pytest_config(config))
 
-@pytest.fixture
-def merged_capabilities(
-    capabilities: t.Dict[str, t.Any],
-    ports_config: t.Dict[str, t.Any],
-):
-    default = {
-        'wdaLocalPort': ports_config.get('wdaLocalPort'),
-        'mjpegServerPort': ports_config.get('mjpegServerPort'),
-    }
-    caps = Caps(capabilities)
-    app_path = caps.value('app')
-    app_id = caps.app_id or AppUtils.get_app_id(app_path=app_path)
-    if not app_id:
-        logger.warning(
-            f'App id was not set in capabilities (`bundleId` in iOS, `appPackage` in Android). '
-            'This might lead to some unexpected behaviors. '
-            'It is recommended to explicitly set this value. For example: '
-            f"{{'bundleId': 'com.example.app'}}"
-        )
-    return {**default, **capabilities}
-
-
-@pytest.fixture
-def capabilities():
-    return {}
-
-
-@pytest.fixture(scope='session')
-def appium_service(
-    appium_config,
-    parallel_worker_id,
-    session_artifacts_dir,
-):
-    host, port = appium_config.get('host'), appium_config.get('port')
-    logger.info(f'Starting Appium ({host}:{port})..')
-
-    suffix = '' if parallel_worker_id is None else f'_{parallel_worker_id + 1}'
-    appium_log_path = session_artifacts_dir / f'appium{suffix}.log'
-    service = AppiumService()
-    with appium_log_path.open('wb') as f:
-        service.start(
-            args=[
-                '--address',
-                host,
-                '-p',
-                str(port),
-            ],
-            stdout=f,
-            stderr=f,
-            timeout_ms=20000,
-        )
-    yield service
-    service.stop()
-    logger.info('Stopping Appium...')
+    def destroy_cached_fixtures(self, scope):
+        for name in self._cache._fixtures[scope]:
+            delattr(self._cache, name)
+        self._cache._fixtures[scope].clear()

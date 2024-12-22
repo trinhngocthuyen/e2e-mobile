@@ -20,7 +20,6 @@ dependencies = [
     "retry",
     "Appium-Python-Client",
     "pytest",
-    "pytest-xdist",
     "click",
     "seeeye>=0.0.5",
 ]
@@ -62,4 +61,4 @@ known_inhouse = "cicd"
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "INHOUSE", "FIRSTPARTY", "LOCALFOLDER"]
 
 [tool.pytest.ini_options]
-addopts = "-s -v --cov=. --cov-report=xml --log-file=.artifacts/latest/pytest.log --html=.artifacts/latest/report.html"
+addopts = "-s -v --log-file=.artifacts/pytest.log --html=.artifacts/report.html --artifacts=.artifacts"
