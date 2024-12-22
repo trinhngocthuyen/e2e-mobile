@@ -21,7 +21,7 @@ dependencies = [
     "Appium-Python-Client",
     "pytest",
     "click",
-    "seeeye>=0.0.5",
+    "seeeye>=0.1.1",
 ]
 requires-python = ">=3.10"
 
@@ -61,4 +61,4 @@ known_inhouse = "cicd"
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "INHOUSE", "FIRSTPARTY", "LOCALFOLDER"]
 
 [tool.pytest.ini_options]
-addopts = "-s -v --log-file=.artifacts/pytest.log --html=.artifacts/report.html --artifacts=.artifacts"
+addopts = "-s -v --html=.artifacts/report.html --artifacts=.artifacts --appium-server-auto"

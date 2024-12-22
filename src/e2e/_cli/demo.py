@@ -4,10 +4,11 @@ from pathlib import Path
 
 import click
 
-from cicd.core.logger import logger
 from cicd.core.utils.file import FileUtils
 from cicd.core.utils.sh import sh
 from cicd.ios.mixin.build import BuildMixin
+
+from e2e.core.logger import logger
 
 __all__ = ['main']
 

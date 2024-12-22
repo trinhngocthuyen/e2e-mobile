@@ -1,10 +1,10 @@
+import shutil
 from collections import defaultdict
 
 import pytest
 
-from cicd.core.logger import logger
-
 from e2e.core.config import E2EConfig
+from e2e.core.logger import logger
 
 from .base import Plugin
 
@@ -40,6 +40,7 @@ class CorePlugin(Plugin):
     @pytest.hookimpl(tryfirst=True, hookwrapper=True)
     def pytest_runtest_protocol(self, item, nextitem):
         self._cache.set('item', item)
+        self.clean_artifacts_dir()
         yield
         delattr(self._cache, 'item')
         self.wd.quit()  # Quit driver to release Appium resources
@@ -90,3 +91,8 @@ class CorePlugin(Plugin):
         for name in self._cache._fixtures[scope]:
             delattr(self._cache, name)
         self._cache._fixtures[scope].clear()
+
+    def clean_artifacts_dir(self):
+        if self.artifacts_dir.exists():
+            shutil.rmtree(self.artifacts_dir)
+        self.artifacts_dir.mkdir(parents=True, exist_ok=True)
