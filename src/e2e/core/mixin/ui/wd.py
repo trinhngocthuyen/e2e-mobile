@@ -5,6 +5,7 @@ from functools import cached_property
 from cicd.core.mixin.logger import LoggerMixin
 
 from e2e._typing import WD
+from e2e.core.env import env
 from e2e.core.utils.wd import WDUtils
 
 __all__ = ['WDMixin']
@@ -40,13 +41,43 @@ class WDMixin(LoggerMixin):
     def app_id(self) -> str | None:
         return WDUtils.app_id_from_caps(self.wd.capabilities)
 
-    def relaunch_app(self, app_id: str | None = None):
+    def terminate_app(self, app_id: str | None = None):
+        self.logger.info(f'Terminate app: {app_id}')
+        self.wd.terminate_app(app_id or self.app_id)
+
+    def relaunch_app(self, app_id: str | None = None, **kwargs):
         app_id = app_id or self.app_id
-        self.logger.info(f'Relaunch the app: {app_id}')
         if not app_id:
             self.logger.warning('Cannot detect app_id for app relaunch')
-        self.wd.terminate_app(app_id=app_id)
+        self.terminate_app(app_id=app_id)
+        if kwargs:  # Possibly launch with environment/intent argument
+            self.launch_app_with_env(app_id=app_id, **kwargs)
+        else:
+            self.activate_app(app_id)
+
+    def activate_app(self, app_id: str):
+        self.logger.info(f'Activate app: {app_id}')
         self.wd.activate_app(app_id=app_id)
+
+    def launch_app_with_env(self, app_id: str, **kwargs):
+        '''Launch app with environment. iOS uses `environment`, Android uses `extras`.
+
+        Refer to these docs for the environment params.
+        - iOS: https://appium.github.io/appium-xcuitest-driver/latest/reference/execute-methods#mobile-launchapp
+        - Android: https://github.com/appium/appium-uiautomator2-driver/tree/master#mobile-startactivity
+        '''
+        self.logger.info(f'Launch app: {app_id}, {kwargs = }')
+        if env.is_ios:
+            return self.execute_script(
+                'mobile: launchApp', {'bundleId': app_id, **kwargs}
+            )
+        return self.execute_script(
+            'mobile: startActivity', {'intent': app_id, **kwargs}
+        )
+
+    def execute_script(self, script: str, *args):
+        # https://github.com/appium/appium-xcuitest-driver/blob/master/lib/execute-method-map.ts
+        return self.wd.execute_script(script, *args)
 
     def swipe(
         self,
