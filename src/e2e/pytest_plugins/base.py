@@ -42,8 +42,8 @@ class Plugin:
         return self.session_artifacts_dir
 
     @property
-    def wd_utils(self) -> WDUtils:
-        return WDUtils(self.wd)
+    def wd_utils(self) -> WDUtils | None:
+        return WDUtils(self.wd) if self.wd else None
 
     @property
     def pytest_config(self) -> pytest.Config | None:

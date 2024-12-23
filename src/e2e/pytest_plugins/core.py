@@ -43,7 +43,8 @@ class CorePlugin(Plugin):
         self.clean_artifacts_dir()
         yield
         delattr(self._cache, 'item')
-        self.wd.quit()  # Quit driver to release Appium resources
+        if self.wd:
+            self.wd.quit()  # Quit driver to release Appium resources
         self.destroy_cached_fixtures(scope='function')
 
     @pytest.hookimpl(tryfirst=True, hookwrapper=True)
