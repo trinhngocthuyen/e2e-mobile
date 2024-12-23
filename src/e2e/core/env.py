@@ -28,5 +28,9 @@ class Env:
     def is_ios(self) -> bool:
         return self.platform == Platform.IOS
 
+    @property
+    def is_android(self) -> bool:
+        return self.platform == Platform.ADR
+
 
 env = Env()
