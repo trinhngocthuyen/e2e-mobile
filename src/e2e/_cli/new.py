@@ -1,8 +1,7 @@
 import click
 
-from cicd.core.logger import logger
-
 from e2e._typing import Path
+from e2e.core.logger import logger
 
 from .template import Template
 

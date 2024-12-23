@@ -4,7 +4,7 @@ import pytest
 import requests
 from appium.webdriver.appium_service import AppiumService
 
-from cicd.core.logger import logger
+from e2e.core.logger import logger
 
 from .base import Plugin
 
@@ -25,7 +25,7 @@ class AppiumServicePlugin(Plugin):
         if self.is_non_exec_session(session):
             yield
             return
-        if self.is_server_up():
+        if not session.config.option.appium_server_auto or self.is_server_up():
             yield
             return
 
@@ -56,7 +56,9 @@ class AppiumServicePlugin(Plugin):
 
     def is_server_up(self):
         try:
-            response = requests.get(f'{self.appium_config.server_url}/status')
+            response = requests.get(
+                f'{self.appium_config.server_url}/status', timeout=5
+            )
             return response.json().get('value').get('ready')
         except:
             pass

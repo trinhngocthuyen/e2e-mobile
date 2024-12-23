@@ -7,7 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from cicd.core.logger import logger
+from e2e.core.logger import logger
 
 E = t.TypeVar('E', bound='Element')
 
