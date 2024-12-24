@@ -9,6 +9,7 @@ class E2EConfig:
         self.session_artifacts_dir: Path = kwargs.get(
             'session_artifacts_dir', '.artifacts'
         )
+        self.session_artifacts_dir.mkdir(parents=True, exist_ok=True)
 
     @staticmethod
     def from_pytest_config(config):
