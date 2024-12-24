@@ -22,6 +22,8 @@ class Env:
 
     @property
     def platform(self) -> Platform:
+        if hasattr(self, '_platform') and self._platform:
+            return Platform(self._platform)
         return Platform(self.get('PLATFORM', default='ios'))
 
     @property

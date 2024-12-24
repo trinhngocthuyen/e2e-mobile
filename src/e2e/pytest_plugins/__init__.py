@@ -20,6 +20,7 @@ def pytest_configure(config):
 
 def pytest_addoption(parser: pytest.Parser, pluginmanager):
     group = parser.getgroup('e2e-mobile')
+    group.addoption('--platform', help='Platform (ios/android)')
     group.addoption('--artifacts', type=Path, help='Artifacts dir')
     group.addoption(
         '--appium-server-auto',

@@ -4,6 +4,7 @@ from collections import defaultdict
 import pytest
 
 from e2e.core.config import E2EConfig
+from e2e.core.env import env
 from e2e.core.logger import logger
 
 from .base import Plugin
@@ -85,6 +86,7 @@ class CorePlugin(Plugin):
 
     @pytest.hookimpl(tryfirst=True)
     def pytest_configure(self, config):
+        env._platform = config.option.platform
         self._cache.set('pytest_config', config)
         self._cache.set('e2e_config', E2EConfig.from_pytest_config(config))
 
