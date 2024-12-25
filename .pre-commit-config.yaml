@@ -12,15 +12,17 @@ repos:
       - id: black
         args: ['--skip-string-normalization']
         files: ^(src|tests|e2e_ext)
+        exclude: e2e_ext/_typing.py
   - repo: https://github.com/PyCQA/isort
     rev: 5.12.0
     hooks:
       - id: isort
         files: ^(src|tests|e2e_ext)
+        exclude: e2e_ext/_typing.py
   - repo: https://github.com/PyCQA/autoflake
     rev: v1.4
     hooks:
       - id: autoflake
         args: ['-r', '-i', '--remove-all-unused-imports', '--remove-unused-variables']
         files: ^(src|tests|e2e_ext)
-        exclude: __init__.py$
+        exclude: (__init__.py|e2e_ext/_typing.py)$

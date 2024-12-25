@@ -1,4 +1,4 @@
-from e2e.core import Simulation
+from e2e_ext.core import Simulation
 
 
 class ExampleSimulation(Simulation):

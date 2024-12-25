@@ -1,5 +1,5 @@
-from e2e_ext.screens.example import ExampleScreen
-from e2e_ext.simulations.example import ExampleSimulation
+from .screens.example import ExampleScreen
+from .simulations.example import ExampleSimulation
 
 
 class ScreensTyping:
