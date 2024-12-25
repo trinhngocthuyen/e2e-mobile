@@ -1,3 +1,8 @@
+import sys
+
+# pytest_plugins is loaded first. Let's modify sys.path here so that `e2e_ext` can be imported
+sys.path.append('.')
+
 from pathlib import Path
 
 from e2e.core.utils import MetaUtils

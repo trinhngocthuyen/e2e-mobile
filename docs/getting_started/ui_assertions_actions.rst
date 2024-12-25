@@ -62,7 +62,7 @@ To make your tests readable and reusable, you are encouraged to structure your U
 
 .. code-block:: python
 
-    from e2e.core import Screen
+    from e2e_ext.core import Screen
 
     class SettingsScreen(Screen):
         def logout(self):
@@ -72,7 +72,7 @@ Structuring your code this way, your tests would look more intuitive:
 
 .. code-block:: python
 
-    from e2e.tester import Tester
+    from e2e_ext.core.tester import Tester
 
     def test_logout(tester: Tester):
         ...

@@ -1,7 +1,7 @@
 import pytest
 
 from e2e.core.config import E2EConfig
-from e2e.tester import Tester
+from e2e.core.logger import logger
 
 
 @pytest.fixture
@@ -17,4 +17,12 @@ def tester(
             tester.ui.element('Settings').tap()
             ...
     '''
+    try:
+        from e2e_ext.core import Tester
+    except:
+        logger.warning(
+            f'Cannot import Tester from `e2e_ext.core` -> use from `e2e.core`'
+        )
+        from e2e.core import BaseTester as Tester
+
     return Tester(wd=wd, artifacts_dir=e2e_config.artifacts_dir_of(request.node.name))

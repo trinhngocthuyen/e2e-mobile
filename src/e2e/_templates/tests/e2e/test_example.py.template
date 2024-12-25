@@ -1,4 +1,4 @@
-from e2e.tester import Tester
+from e2e_ext.core.tester import Tester
 
 
 def test_example(tester: Tester):

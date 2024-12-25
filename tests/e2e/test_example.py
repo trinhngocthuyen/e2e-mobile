@@ -1,4 +1,4 @@
-from e2e.tester import Tester
+from e2e_ext.core import Tester
 
 
 def test_example(tester: Tester):
@@ -23,6 +23,6 @@ def test_example(tester: Tester):
     tester.ui.home.button('Search').tap()
     tester.ui.home.textfield('Search Wikipedia').input('Facebook')
     tester.ui.home.element(
-        xpath='//*[starts-with(@value, "Social networking service")]'
+        xpath='//*[starts-with(@value, "Social-networking service")]'
     ).tap()
     tester.ui.home.button('Back').tap()
