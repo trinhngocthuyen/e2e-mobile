@@ -25,9 +25,7 @@ def update_typing(path: Path, name: str, category: str, cls_name: str):
         annotation_line = f'    {name}: {cls_name}'
         if annotation_line not in content:
             cls_def_line = f'class {category.title()}sTyping'
-            idx = next(
-                i for i, line in enumerate(lines) if line.startswith(cls_def_line)
-            )
+            idx = next(i for i, line in enumerate(lines) if line.startswith(cls_def_line))
             lines.insert(idx + 1, annotation_line)
 
     insert_import_statement()

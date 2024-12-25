@@ -22,7 +22,5 @@ def test_example(tester: Tester):
     # Check search screen
     tester.ui.home.button('Search').tap()
     tester.ui.home.textfield('Search Wikipedia').input('Facebook')
-    tester.ui.home.element(
-        xpath='//*[starts-with(@value, "Social-networking service")]'
-    ).tap()
+    tester.ui.home.element(xpath='//*[starts-with(@value, "Social-networking service")]').tap()
     tester.ui.home.button('Back').tap()

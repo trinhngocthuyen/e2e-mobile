@@ -6,9 +6,7 @@ from e2e.core.appium.config import AppiumConfig
 class E2EConfig:
     def __init__(self, **kwargs):
         self.appium = AppiumConfig(server_url=kwargs.get('appium'))
-        self.session_artifacts_dir: Path = kwargs.get(
-            'session_artifacts_dir', '.artifacts'
-        )
+        self.session_artifacts_dir: Path = kwargs.get('session_artifacts_dir', '.artifacts')
         self.session_artifacts_dir.mkdir(parents=True, exist_ok=True)
 
     @staticmethod

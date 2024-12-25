@@ -31,9 +31,7 @@ def wd(
     client_config = ClientConfig(e2e_config.appium.server_url)
     connection = AppiumConnection(client_config=client_config)
 
-    logger.debug(
-        f'Create driver: {e2e_config.appium.server_url}. Capabilities: {merged_capabilities}'
-    )
+    logger.debug(f'Create driver: {e2e_config.appium.server_url}. Capabilities: {merged_capabilities}')
     try:
         this = WD(connection, options=options)
     except Exception as e:

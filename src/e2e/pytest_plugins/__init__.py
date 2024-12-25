@@ -32,6 +32,4 @@ def pytest_addoption(parser: pytest.Parser, pluginmanager):
         action='store_true',
         help='Whether to auto start Appium server if not up',
     )
-    group.addoption(
-        '--appium', default='http://127.0.0.1:4723', help='Appium server URL'
-    )
+    group.addoption('--appium', default='http://127.0.0.1:4723', help='Appium server URL')

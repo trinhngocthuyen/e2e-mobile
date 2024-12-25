@@ -21,11 +21,7 @@ class failable:
 
     def __exit__(self, etype, exc, traceback):
         if exc:
-            msg = (
-                f'Encountered error when running {self.step}: {exc}'
-                if self.step
-                else f'Encountered error: {exc}'
-            )
+            msg = f'Encountered error when running {self.step}: {exc}' if self.step else f'Encountered error: {exc}'
 
             def as_error():
                 logger.error(msg)
@@ -47,9 +43,7 @@ class failable:
             failable_ = self
             if not self.step:
                 # Make `step` more descriptive by cloning this object and modify only `step`
-                failable_ = failable(
-                    step=fn.__name__, etype=self.etype, pattern=self.pattern
-                )
+                failable_ = failable(step=fn.__name__, etype=self.etype, pattern=self.pattern)
             with failable_:
                 return fn(*args, **kwargs)
 

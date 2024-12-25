@@ -68,12 +68,8 @@ class WDMixin(LoggerMixin):
         '''
         self.logger.info(f'Launch app: {app_id}, {kwargs = }')
         if env.is_ios:
-            return self.execute_script(
-                'mobile: launchApp', {'bundleId': app_id, **kwargs}
-            )
-        return self.execute_script(
-            'mobile: startActivity', {'intent': app_id, **kwargs}
-        )
+            return self.execute_script('mobile: launchApp', {'bundleId': app_id, **kwargs})
+        return self.execute_script('mobile: startActivity', {'intent': app_id, **kwargs})
 
     def execute_script(self, script: str, *args):
         # https://github.com/appium/appium-xcuitest-driver/blob/master/lib/execute-method-map.ts

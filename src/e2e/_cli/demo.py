@@ -49,13 +49,7 @@ class Demo:
             os.chdir(workdir)
 
     def copy_app_bundle(self):
-        build_dir = (
-            self.tmp_dir
-            / 'DerivedData'
-            / 'Build'
-            / 'Products'
-            / 'Debug-iphonesimulator'
-        )
+        build_dir = self.tmp_dir / 'DerivedData' / 'Build' / 'Products' / 'Debug-iphonesimulator'
         if self.dst_path.exists():
             shutil.rmtree(self.dst_path)
         sh.exec(f'cd "{build_dir.absolute()}" && zip -r Wikipedia.zip Wikipedia.app')

@@ -15,9 +15,7 @@ class PushNotificationSimulation(Simulation):
         if env.platform == Platform.IOS:
             self.ios_push_notification(**kwargs)
         else:
-            self.logger.warning(
-                f'Push notification is not yet implemented in platform: {env.platform}'
-            )
+            self.logger.warning(f'Push notification is not yet implemented in platform: {env.platform}')
 
     def ios_push_notification(
         self,

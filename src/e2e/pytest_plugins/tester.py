@@ -20,9 +20,7 @@ def tester(
     try:
         from e2e_ext.core import Tester
     except:
-        logger.warning(
-            f'Cannot import Tester from `e2e_ext.core` -> use from `e2e.core`'
-        )
+        logger.warning(f'Cannot import Tester from `e2e_ext.core` -> use from `e2e.core`')
         from e2e.core import BaseTester as Tester
 
     return Tester(wd=wd, artifacts_dir=e2e_config.artifacts_dir_of(request.node.name))

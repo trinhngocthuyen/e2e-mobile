@@ -15,9 +15,7 @@ class DynamicAttrsMixin:
             if path.stem == '__init__':
                 continue
             module_name = str(path.with_suffix('')).replace('/', '.')
-            results[module_name] = ModuleUtils.load_source(
-                path=path, module_name=module_name
-            )
+            results[module_name] = ModuleUtils.load_source(path=path, module_name=module_name)
         return results
 
     def set_dynamic_attrs(

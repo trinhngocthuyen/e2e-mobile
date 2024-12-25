@@ -84,11 +84,7 @@ class LogPlugin(Plugin):
 
     def add_log_handler(self, path, dtype: t.Type[logging.FileHandler]):
         for logger_ in [logger, compact_logger]:
-            formatter = (
-                logger_.handlers[0].formatter
-                if logger_.handlers
-                else logging.Formatter()
-            )
+            formatter = logger_.handlers[0].formatter if logger_.handlers else logging.Formatter()
             handler = dtype(path)
             handler.setFormatter(formatter)
             logger_.addHandler(handler)

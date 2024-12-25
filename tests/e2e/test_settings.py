@@ -30,9 +30,7 @@ def test_login_error(tester: Tester, take_me_to_login):
     tester.ui.textfield(xpath='//*[@value="enter password"]').input('bar')
     tester.ui.hide_keyboard()
     tester.ui.button('Log in').tap()
-    tester.ui.element(
-        'Incorrect username or password entered.\nPlease try again.'
-    ).must_exist()
+    tester.ui.element('Incorrect username or password entered.\nPlease try again.').must_exist()
     tester.ui.wait(5)
 
 

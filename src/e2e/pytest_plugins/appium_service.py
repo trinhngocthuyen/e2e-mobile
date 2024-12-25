@@ -29,9 +29,7 @@ class AppiumServicePlugin(Plugin):
             yield
             return
 
-        logger.info(
-            f'Appium server was not up. Will start Appium at: {self.appium_config.server_url}'
-        )
+        logger.info(f'Appium server was not up. Will start Appium at: {self.appium_config.server_url}')
         self.service = AppiumService()
         with self.appium_log_path.open('wb') as f:
             self.service.start(
@@ -56,9 +54,7 @@ class AppiumServicePlugin(Plugin):
 
     def is_server_up(self):
         try:
-            response = requests.get(
-                f'{self.appium_config.server_url}/status', timeout=5
-            )
+            response = requests.get(f'{self.appium_config.server_url}/status', timeout=5)
             return response.json().get('value').get('ready')
         except:
             pass

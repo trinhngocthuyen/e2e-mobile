@@ -18,16 +18,12 @@ class LocationUpdateSimulation(Simulation):
         if env.platform == Platform.IOS:
             self.ios_update_location(lat=lat, lng=lng)
         else:
-            self.logger.warning(
-                f'Location update is not yet implemented for platform: {env.platform}'
-            )
+            self.logger.warning(f'Location update is not yet implemented for platform: {env.platform}')
 
     def ios_update_location(self, lat: float, lng: float):
         device = WDUtils.device_from_caps(self.wd.capabilities)
         self.logger.debug(f'Update location: {lat = }, {lng = }')
         sh.exec(f'xcrun simctl location {device} set {lat},{lng}')
 
-    def __call__(
-        self, lat: float | None = None, lng: float | None = None
-    ) -> 'LocationUpdateSimulation':
+    def __call__(self, lat: float | None = None, lng: float | None = None) -> 'LocationUpdateSimulation':
         return super().__call__(lat=lat, lng=lng)

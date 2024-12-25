@@ -34,9 +34,7 @@ class Simulation(LoggerMixin):
         return self
 
     def __enter__(self: S) -> S:
-        self.logger.info(
-            f'Running simulation: {self.__class__.__name__}, kwargs = {self.kwargs}'
-        )
+        self.logger.info(f'Running simulation: {self.__class__.__name__}, kwargs = {self.kwargs}')
         self.run(**self.kwargs)
         return self
 
