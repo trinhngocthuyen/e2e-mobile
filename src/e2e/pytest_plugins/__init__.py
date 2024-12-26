@@ -13,6 +13,7 @@ from .core import *
 from .diagnostics import *
 from .log import *
 from .parallel import *
+from .report import *
 from .simulator import *
 from .tester import *
 from .wd import *
