@@ -1,5 +1,6 @@
 name: milestone-creation
 on:
+  workflow_dispatch:
   release:
     types: ["published"]
 
